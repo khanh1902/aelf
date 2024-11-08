@@ -1,0 +1,216 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj": {}
+  },
+  "projects": {
+    "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj",
+        "projectName": "FishtopiaSMC",
+        "projectPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj",
+        "packagesPath": "C:\\Users\\PC0096\\.nuget\\packages\\",
+        "outputPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\PC0096\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AElf.Sdk.CSharp": {
+              "target": "Package",
+              "version": "[1.5.0, )"
+            },
+            "AElf.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.35, 6.0.35]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.35, 6.0.35]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.35, 6.0.35]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj",
+        "projectName": "FishtopiaSMC.Tests",
+        "projectPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj",
+        "packagesPath": "C:\\Users\\PC0096\\.nuget\\packages\\",
+        "outputPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\PC0096\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj": {
+                "projectPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AElf.ContractTestKit": {
+              "target": "Package",
+              "version": "[1.5.0, )"
+            },
+            "AElf.EconomicSystem": {
+              "target": "Package",
+              "version": "[1.5.0, )"
+            },
+            "AElf.GovernmentSystem": {
+              "target": "Package",
+              "version": "[1.5.0, )"
+            },
+            "AElf.Testing.TestBase": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "AElf.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.3.0, )"
+            },
+            "Shouldly": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "coverlet.msbuild": {
+              "target": "Package",
+              "version": "[2.5.1, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.console": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.35, 6.0.35]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.35, 6.0.35]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.35, 6.0.35]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+import "aelf/core.proto";
+import "aelf/options.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "Protobuf/reference/acs12.proto";
+// The namespace of this class
+option csharp_namespace = "AElf.Contracts.FishtopiaSMC";
+
+service FishtopiaSMC {
+  // The name of the state class the smart contract is going to use to access blockchain state
+  option (aelf.csharp_state) = "AElf.Contracts.FishtopiaSMC.FishtopiaSMCState";
+  option (aelf.base) = "Protobuf/reference/acs12.proto";
+  
+  rpc Initialize(google.protobuf.Empty) returns (google.protobuf.BoolValue) {
+  }
+  
+  rpc SetAdminAddress (SetAdminAddressInput) returns (google.protobuf.BoolValue) {
+  }
+
+  rpc PurchaseItems (PurchaseItemsInput) returns (google.protobuf.BoolValue) {
+  }
+
+  rpc AddPaymentToken(PaymentTokenInput) returns (google.protobuf.BoolValue) {
+  } 
+
+  rpc AddItems (ItemsInput) returns (google.protobuf.BoolValue) {
+  }
+
+  rpc GetAdminAddress(google.protobuf.Empty) returns (google.protobuf.StringValue) {
+    option (aelf.is_view) = true;
+  }
+  
+  rpc BalanceOf (BalanceOfInput) returns (google.protobuf.Int64Value) {
+    option (aelf.is_view) = true;
+  }
+
+  rpc GetOwner (google.protobuf.Empty) returns (google.protobuf.StringValue) {
+    option (aelf.is_view) = true;
+  }
+}
+
+message SetAdminAddressInput {
+  aelf.Address address = 1;
+}
+
+message BalanceOfInput {
+  aelf.Address address = 1;
+}
+
+message PurchaseItemsInput {
+  int64 amount = 1;
+}
+
+message PurchaseItemsEvent {
+  option (aelf.is_event) = true;
+  aelf.Address spender = 2;
+  int64 price = 3;
+}
+
+message ApproveInputData {
+  aelf.Address spender = 1;
+  int64 amount = 2;
+}
+
+message PaymentTokenInput {
+  aelf.Address address = 1;
+}
+
+message ItemsInput {
+  string items_id = 1;
+  bool is_available = 2;
+  bool can_buy = 3;
+  aelf.Address payment_token = 4;
+  int64 items_price = 5;
+}
