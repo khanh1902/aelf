@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
 using AElf.Contracts.MultiToken;
+using System.Collections.Generic;
 using AElf.Sdk.CSharp;
 using AElf.Types;
 using Google.Protobuf.WellKnownTypes;
-// using System.Text;
-// using System.Text.Json;
-// using Google.Protobuf;
 
 namespace AElf.Contracts.FishtopiaSMC
 {
@@ -59,7 +56,7 @@ namespace AElf.Contracts.FishtopiaSMC
             }
         }
 
-        public override BoolValue AddItems(ItemsInput input)
+        public override BoolValue AddItems(AddItemsInput input)
         {
             AssertIsOwner();
             try
@@ -69,15 +66,15 @@ namespace AElf.Contracts.FishtopiaSMC
                 List<ItemsDAO> itemsList = State.ItemsList[input.PaymentToken];
                 foreach (ItemsDAO items in itemsList)
                 {
-                    Assert(items.ItemsId.Value != input.ItemsId, "Items Already Exists.");
+                    Assert(items.ItemsId != input.ItemsId, "Items Already Exists.");
                 }
 
                 itemsList.Add(new ItemsDAO
                 {
-                    ItemsId = new StringValue { Value = input.ItemsId },
-                    IsAvailable = new BoolValue { Value = input.IsAvailable },
-                    CanBuy = new BoolValue { Value = input.CanBuy },
-                    ItemsPrice = new Int64Value { Value = input.ItemsPrice },
+                    ItemsId = input.ItemsId,
+                    IsAvailable = input.IsAvailable,
+                    CanBuy = input.CanBuy,
+                    ItemsPrice = input.ItemsPrice
                 });
 
                 State.ItemsList[input.PaymentToken] = itemsList;
@@ -88,6 +85,11 @@ namespace AElf.Contracts.FishtopiaSMC
             {
                 return new BoolValue { Value = false };
             }
+        }
+
+        public override BoolValue RemoveItems(RemoveItemsInput input)
+        {
+            return new BoolValue { Value = true };
         }
 
         public override BoolValue PurchaseItems(PurchaseItemsInput input)

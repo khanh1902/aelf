@@ -25,7 +25,13 @@ service FishtopiaSMC {
   rpc AddPaymentToken(PaymentTokenInput) returns (google.protobuf.BoolValue) {
   } 
 
-  rpc AddItems (ItemsInput) returns (google.protobuf.BoolValue) {
+  rpc AddItems (AddItemsInput) returns (google.protobuf.BoolValue) {
+  }
+
+  rpc GetAllItems (google.protobuf.Empty) returns (ItemsListOutput) {
+  }
+
+  rpc RemoveItems(RemoveItemsInput) returns (google.protobuf.BoolValue) {
   }
 
   rpc GetAdminAddress(google.protobuf.Empty) returns (google.protobuf.StringValue) {
@@ -68,10 +74,26 @@ message PaymentTokenInput {
   aelf.Address address = 1;
 }
 
-message ItemsInput {
+message AddItemsInput {
   string items_id = 1;
   bool is_available = 2;
   bool can_buy = 3;
   aelf.Address payment_token = 4;
   int64 items_price = 5;
+}
+
+message RemoveItemsInput {
+  string items_id = 1;
+}
+
+message ItemsOutput {
+  string items_id = 1;
+  bool is_available = 2;
+  bool can_buy = 3;
+  aelf.Address payment_token = 4;
+  int64 items_price = 5;
+}
+
+message ItemsListOutput {
+  repeated ItemsOutput items_output = 1;
 }

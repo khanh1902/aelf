@@ -4,9 +4,9 @@ namespace AElf.Contracts.FishtopiaSMC
 {
     public class ItemsDAO
     {
-        public StringValue ItemsId { get; set; }
-        public BoolValue IsAvailable { get; set; }
-        public BoolValue CanBuy { get; set; }
-        public Int64Value ItemsPrice { get; set; }
+        public string ItemsId { get; set; }
+        public bool IsAvailable { get; set; }
+        public bool CanBuy { get; set; }
+        public long ItemsPrice { get; set; }
     }
 }

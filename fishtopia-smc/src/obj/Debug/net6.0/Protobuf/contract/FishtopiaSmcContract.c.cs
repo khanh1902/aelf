@@ -41,7 +41,9 @@ namespace AElf.Contracts.FishtopiaSMC {
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.SetAdminAddressInput> __Marshaller_SetAdminAddressInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.SetAdminAddressInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.PurchaseItemsInput> __Marshaller_PurchaseItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.PurchaseItemsInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput> __Marshaller_PaymentTokenInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput.Parser.ParseFrom);
-    static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.ItemsInput> __Marshaller_ItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.ItemsInput.Parser.ParseFrom);
+    static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.AddItemsInput> __Marshaller_AddItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.AddItemsInput.Parser.ParseFrom);
+    static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.ItemsListOutput> __Marshaller_ItemsListOutput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.ItemsListOutput.Parser.ParseFrom);
+    static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput> __Marshaller_RemoveItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.StringValue> __Marshaller_google_protobuf_StringValue = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.StringValue.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.BalanceOfInput> __Marshaller_BalanceOfInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.BalanceOfInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.Int64Value> __Marshaller_google_protobuf_Int64Value = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Int64Value.Parser.ParseFrom);
@@ -76,11 +78,25 @@ namespace AElf.Contracts.FishtopiaSMC {
         __Marshaller_PaymentTokenInput,
         __Marshaller_google_protobuf_BoolValue);
 
-    static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.ItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_AddItems = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.ItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+    static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.AddItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_AddItems = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.AddItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
         aelf::MethodType.Action,
         __ServiceName,
         "AddItems",
-        __Marshaller_ItemsInput,
+        __Marshaller_AddItemsInput,
+        __Marshaller_google_protobuf_BoolValue);
+
+    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::AElf.Contracts.FishtopiaSMC.ItemsListOutput> __Method_GetAllItems = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::AElf.Contracts.FishtopiaSMC.ItemsListOutput>(
+        aelf::MethodType.Action,
+        __ServiceName,
+        "GetAllItems",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_ItemsListOutput);
+
+    static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_RemoveItems = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+        aelf::MethodType.Action,
+        __ServiceName,
+        "RemoveItems",
+        __Marshaller_RemoveItemsInput,
         __Marshaller_google_protobuf_BoolValue);
 
     static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue> __Method_GetAdminAddress = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue>(
@@ -148,7 +164,17 @@ namespace AElf.Contracts.FishtopiaSMC {
         throw new global::System.NotImplementedException();
       }
 
-      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue AddItems(global::AElf.Contracts.FishtopiaSMC.ItemsInput input)
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue AddItems(global::AElf.Contracts.FishtopiaSMC.AddItemsInput input)
+      {
+        throw new global::System.NotImplementedException();
+      }
+
+      public virtual global::AElf.Contracts.FishtopiaSMC.ItemsListOutput GetAllItems(global::Google.Protobuf.WellKnownTypes.Empty input)
+      {
+        throw new global::System.NotImplementedException();
+      }
+
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue RemoveItems(global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput input)
       {
         throw new global::System.NotImplementedException();
       }
@@ -179,6 +205,8 @@ namespace AElf.Contracts.FishtopiaSMC {
           .AddMethod(__Method_PurchaseItems, serviceImpl.PurchaseItems)
           .AddMethod(__Method_AddPaymentToken, serviceImpl.AddPaymentToken)
           .AddMethod(__Method_AddItems, serviceImpl.AddItems)
+          .AddMethod(__Method_GetAllItems, serviceImpl.GetAllItems)
+          .AddMethod(__Method_RemoveItems, serviceImpl.RemoveItems)
           .AddMethod(__Method_GetAdminAddress, serviceImpl.GetAdminAddress)
           .AddMethod(__Method_BalanceOf, serviceImpl.BalanceOf)
           .AddMethod(__Method_GetOwner, serviceImpl.GetOwner).Build();
