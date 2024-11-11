@@ -13,44 +13,34 @@ service FishtopiaSMC {
   option (aelf.csharp_state) = "AElf.Contracts.FishtopiaSMC.FishtopiaSMCState";
   option (aelf.base) = "Protobuf/reference/acs12.proto";
   
-  rpc Initialize(google.protobuf.Empty) returns (google.protobuf.BoolValue) {
+  rpc Initialize(google.protobuf.Empty) returns (google.protobuf.Empty) {
   }
   
-  rpc SetAdminWallet (aelf.Address) returns (google.protobuf.BoolValue) {
+  rpc SetAdminWallet (AddressInput) returns (google.protobuf.Empty) {
   }
 
-  rpc PurchaseItems (PurchaseItemsInput) returns (google.protobuf.BoolValue) {
+  rpc PurchaseItems (PurchaseItemsInput) returns (google.protobuf.Empty) {
   }
 
-  rpc AddPaymentTokens(PaymentTokenInput) returns (google.protobuf.BoolValue) {
+  rpc AddPaymentToken(AddressInput) returns (google.protobuf.Empty) {
   }
 
-  rpc RemovePaymentTokens (PaymentTokenInput) returns (google.protobuf.BoolValue) {
+  rpc RemovePaymentToken (AddressInput) returns (google.protobuf.Empty) {
   }
 
-  rpc AvailablePaymentToken (aelf.Address) returns (google.protobuf.BoolValue) {
+  rpc AddItems (AddItemsInput) returns (google.protobuf.Empty) {
   }
 
-  rpc AddItems (AddItemsInput) returns (google.protobuf.BoolValue) {
+  rpc RemoveItems(google.protobuf.StringValue) returns (google.protobuf.Empty) {
+  }
+  
+  rpc RenounceOwnership (google.protobuf.Empty) returns (google.protobuf.Empty) {
   }
 
-  rpc RemoveItems(google.protobuf.StringValue) returns (google.protobuf.BoolValue) {
-  }
-
-  rpc AvailableItems (google.protobuf.StringValue) returns (google.protobuf.BoolValue) {
-  }
-
-  rpc RenounceOwnership (google.protobuf.Empty) returns (google.protobuf.BoolValue) {
-  }
-
-  rpc TransferOwnership (aelf.Address) returns (google.protobuf.BoolValue) {
+  rpc TransferOwnership (AddressInput) returns (google.protobuf.Empty) {
   }
 
   rpc Owner (google.protobuf.Empty) returns (google.protobuf.StringValue) {
-    option (aelf.is_view) = true;
-  }
-
-  rpc IsOwner(google.protobuf.Empty) returns (google.protobuf.BoolValue) {
     option (aelf.is_view) = true;
   }
 
@@ -58,7 +48,15 @@ service FishtopiaSMC {
     option (aelf.is_view) = true;
   }
   
-  rpc BalanceOf (aelf.Address) returns (google.protobuf.Int64Value) {
+  rpc BalanceOf (AddressInput) returns (google.protobuf.Int64Value) {
+    option (aelf.is_view) = true;
+  }
+
+  rpc AvailablePaymentToken (AddressInput) returns (google.protobuf.BoolValue) {
+    option (aelf.is_view) = true;
+  }
+
+  rpc AvailableItems (google.protobuf.StringValue) returns (google.protobuf.BoolValue) {
     option (aelf.is_view) = true;
   }
 }
@@ -77,10 +75,6 @@ message PurchaseItemsEvent {
   aelf.Address spender = 1;
   int64 payable_amount = 2;
   aelf.Address payment_token = 5;
-}
-
-message PaymentTokenInput {
-  repeated aelf.Address address = 1;
 }
 
 message AddItemsInput {
@@ -107,3 +101,14 @@ message ItemsListOutput {
   repeated ItemsOutput items_output = 1;
 }
 
+message AddressInput {
+  aelf.Address address = 1;
+}
+
+message ItemsDAO {
+  string items_id = 1;     
+  bool is_available = 2;    
+  bool can_buy = 3;        
+  aelf.Address payment_token = 4;   
+  int64 items_price = 5;      
+}

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FishtopiaSMC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8805e31185875d80d5beef2f1f7d7ef085aa1a90")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eef3b00cdbb103a99eff25fbcee8237d12475bd0")]
 [assembly: System.Reflection.AssemblyProductAttribute("FishtopiaSMC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FishtopiaSMC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

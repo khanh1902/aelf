@@ -24,3 +24,16 @@ D:\aelf\aelf\fishtopia-smc\src\bin\Debug\net6.0\FishtopiaSMC.dll
 D:\aelf\aelf\fishtopia-smc\src\bin\Debug\net6.0\FishtopiaSMC.pdb
 D:\aelf\aelf\fishtopia-smc\src\obj\Debug\net6.0\ref\FishtopiaSMC.dll
 D:\learn\aelf\contract\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.sourcelink.json
+D:\suga\aelf\fishtopia-smc\src\bin\Debug\net6.0\FishtopiaSMC.deps.json
+D:\suga\aelf\fishtopia-smc\src\bin\Debug\net6.0\FishtopiaSMC.dll
+D:\suga\aelf\fishtopia-smc\src\bin\Debug\net6.0\FishtopiaSMC.pdb
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.csproj.AssemblyReference.cache
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.GeneratedMSBuildEditorConfig.editorconfig
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.AssemblyInfoInputs.cache
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.AssemblyInfo.cs
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.csproj.CoreCompileInputs.cache
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.sourcelink.json
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.dll
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\refint\FishtopiaSMC.dll
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.pdb
+D:\suga\aelf\fishtopia-smc\src\obj\Debug\net6.0\ref\FishtopiaSMC.dll

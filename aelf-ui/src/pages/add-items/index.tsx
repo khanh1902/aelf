@@ -4,16 +4,17 @@ import { toast } from 'react-toastify';
 
 import './transfer-nft.scss';
 import { Button } from '@/components/ui/button';
-import useSmartContract, { DAPP_CHAIN_TESTNET_SMC } from '@/hooks/useSmartContract';
+import useSmartContract from '@/hooks/useSmartContract';
 import { delay, removeNotification } from '@/lib/utils';
 import { useState } from 'react';
 
-const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyProvider | null; currentWalletAddress: string }) => {
-  const { sideChainSmartContract, nativeTokenSmartContract } = useSmartContract(provider);
-  const [payableAmount, setPayableAmount] = useState<number>();
-  const [userId, setUserId] = useState<string>('');
+const AddItems = ({ provider, currentWalletAddress }: { provider: IPortkeyProvider | null; currentWalletAddress: string }) => {
+  const { sideChainSmartContract, } = useSmartContract(provider);
   const [itemsId, setItemsId] = useState<string>('');
+  const [isAvailable, setIsAvailable] = useState<string>('');
+  const [canBuy, setCanBuy] = useState<string>('');
   const [paymentToken, setPaymentToken] = useState<Address>('');
+  const [itemsPrice, setItemsPrice] = useState<number>();
   const navigate = useNavigate();
 
   const handleReturnClick = () => {
@@ -25,14 +26,14 @@ const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyP
     setItemsId(value);
   };
 
-  const handlePayableAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIsAvailableChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setPayableAmount(value as unknown as number);
+    setIsAvailable(value);
   };
 
-  const handleUserIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCanBuyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setUserId(value);
+    setCanBuy(value);
   };
 
   const handlePaymentTokenChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,28 +41,28 @@ const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyP
     setPaymentToken(value);
   };
 
+  const handleItemsPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setItemsPrice(value as unknown as number);
+  };
+
+
   // Handle Transfer Submit Form
   const onSubmit = async () => {
-    const addItemsLoadingId = toast.loading('Purchase Items Executing');
+    const addItemsLoadingId = toast.loading('Add Items Executing');
 
     try {
-      const approveInput = {
-        spender: DAPP_CHAIN_TESTNET_SMC,
-        symbol: 'ELF',
-        Amount: payableAmount,
-      };
-
-      await nativeTokenSmartContract?.callSendMethod('Approve', currentWalletAddress, approveInput);
       const input = {
-        payableAmount,
-        userId,
         itemsId,
+        isAvailable: isAvailable === "true" ? true : false,
+        canBuy: canBuy === 'true' ? true : false,
         paymentToken,
+        itemsPrice: itemsPrice as number
       };
-      await sideChainSmartContract?.callSendMethod('PurchaseItems', currentWalletAddress, input);
+      await sideChainSmartContract?.callSendMethod('AddItems', currentWalletAddress, input);
 
       toast.update(addItemsLoadingId, {
-        render: 'Purchase Items Successfully!',
+        render: 'Add Items Successfully!',
         type: 'success',
         isLoading: false,
       });
@@ -83,10 +84,11 @@ const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyP
         <div className='form-content'>
           <h2 className='form-title'>Add Payment Token</h2>
           <div className='input-group'>
-            <input type='text' name='payableAmount' value={payableAmount} onChange={handlePayableAmountChange} placeholder='Is Available' />
-            <input type='text' name='userId' value={userId} onChange={handleUserIdChange} placeholder='Can Buy' />
             <input type='text' name='itemsId' value={itemsId} onChange={handleItemsIdChange} placeholder='Id' />
+            <input type='text' name='isAvailable' value={isAvailable} onChange={handleIsAvailableChange} placeholder='Is Available' />
+            <input type='text' name='canBuy' value={canBuy} onChange={handleCanBuyChange} placeholder='Can Buy' />
             <input type='text' name='paymentToken' value={paymentToken} onChange={handlePaymentTokenChange} placeholder='Payment Token' />
+            <input type='text' name='itemsPrice' value={itemsPrice} onChange={handleItemsPriceChange} placeholder='Price' />
           </div>
 
           <div className='button-container'>
@@ -103,4 +105,4 @@ const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyP
   );
 };
 
-export default PurchaseItems;
+export default AddItems;

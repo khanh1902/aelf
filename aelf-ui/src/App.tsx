@@ -8,6 +8,12 @@ import HomePage from './pages/home';
 import './app.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SetAdminWallet from './pages/set-admid-wallet';
+import GetOwner from './pages/owner/get-owner';
+import GetBalanceOf from './pages/get-balance-of';
+import AddPaymentToken from './pages/add-payment-token';
+import RemovePaymentToken from './pages/remove-payment-token';
+import AddItems from './pages/add-items';
 import PurchaseItems from './pages/purchase-items';
 
 const App = () => {
@@ -31,8 +37,13 @@ const App = () => {
         {isConnected && currentWalletAddress && (
           <Fragment>
             <Route path='/profile' element={<ProfilePage provider={provider} currentWalletAddress={currentWalletAddress} />} />
-
             <Route path='/purchase-items' element={<PurchaseItems provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/set-admin-wallet' element={<SetAdminWallet provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/get-owner' element={<GetOwner provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/get-balance-of' element={<GetBalanceOf provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/add-payment-token' element={<AddPaymentToken provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/remove-payment-token' element={<RemovePaymentToken provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/add-items' element={<AddItems provider={provider} currentWalletAddress={currentWalletAddress} />} />
           </Fragment>
         )}
       </Routes>

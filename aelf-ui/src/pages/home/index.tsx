@@ -4,28 +4,17 @@ import { IPortkeyProvider } from '@portkey/provider-types';
 import { toast } from 'react-toastify';
 
 import './home.scss';
-import { NFT_IMAGES } from '@/lib/constant';
 import { Button } from '@/components/ui/button';
 import useNFTSmartContract from '@/hooks/useSmartContract';
-import { fetchUserNftData } from '@/lib/commonFunctions';
 import { removeNotification } from '@/lib/utils';
 
 const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvider | null; currentWalletAddress?: string }) => {
   console.log(currentWalletAddress);
   const navigate = useNavigate();
-  const [userNfts, setUserNfts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const { sideChainSmartContract } = useNFTSmartContract(provider);
-  const [isInitialized, setIsInitialized] = useState<boolean>(false);
-
-  // get NFT Data from User's wallet
-  const getNFTData = async () => {
-    const result = await fetchUserNftData(currentWalletAddress as string, sideChainSmartContract);
-    if (result !== 'error') {
-      setUserNfts(result);
-    }
-    setLoading(false);
-  };
+  const [isInitialized, setIsInitialized] = useState<boolean>(
+    localStorage.getItem('Initialized') && localStorage.getItem('Initialized') === '1' ? true : false
+  );
 
   const Initialize = async (currentWalletAddress: string) => {
     const initializeLoadingId = toast.loading('Initialize on SideChain...');
@@ -55,27 +44,32 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
   const handleInitialize = async () => {
     await Initialize(currentWalletAddress as string);
     setIsInitialized(true);
+    localStorage.setItem('Initialized', '1');
   };
-
-  // Use Effect to Fetch NFTs
-  useEffect(() => {
-    if (currentWalletAddress && sideChainSmartContract) {
-      getNFTData();
-    }
-  }, [currentWalletAddress, sideChainSmartContract]);
 
   return (
     <div className='home-container'>
-      <div className='marketplace-info'>
-        <h1>NFTs</h1>
-        <h3>Create and Transfer Non-Fungible Tokens with AELF</h3>
-      </div>
       <div className='nft-collection-container'>
         <div className='nft-collection-head'>
-          <h2>Smart Contract</h2>
+          <h2>Read Contract</h2>
           <div className='button-wrapper'>
-            <Button className='header-button' onClick={() => handleInitialize()} disabled={isInitialized}>
-              Initialize
+            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/get-owner') : toast.warning('Please Connect Wallet First'))}>
+              Owner
+            </Button>
+            <Button className='header-button' onClick={() => handleInitialize()}>
+              IsOwner
+            </Button>
+            <Button className='header-button' onClick={() => handleInitialize()}>
+              AdminWallet
+            </Button>
+            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/get-balance-of') : toast.warning('Please Connect Wallet First'))}>
+              BalanceOf
+            </Button>
+            <Button className='header-button' onClick={() => handleInitialize()}>
+              AvailablePaymentToken
+            </Button>
+            <Button className='header-button' onClick={() => handleInitialize()}>
+              AvailableItems
             </Button>
             <Button
               className='header-button'
@@ -85,59 +79,52 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
             </Button>
           </div>
         </div>
+      </div>
 
-        {currentWalletAddress ? (
-          <div className='nft-collection'>
-            {userNfts.length > 0 ? (
-              userNfts.slice(0, 5).map((data, index) => (
-                <div className={userNfts.length > 3 ? 'nft-card around' : 'nft-card'} key={index}>
-                  <img src={NFT_IMAGES[index + 1]} alt={'nft- image' + index} />
-                  <div className='nft-info'>
-                    <p>{data.nftSymbol}</p>
-                  </div>
+      <div className='nft-collection-container'>
+        <div className='nft-collection-head'>
+          <h2>Write Contract</h2>
+          <div className='button-wrapper'>
+            <Button className='header-button' onClick={() => handleInitialize()} disabled={isInitialized}>
+              Initialize
+            </Button>
 
-                  <div className='nft-info-row'>
-                    <span>Name:</span>
-                    <span>{data.tokenName}</span>
-                  </div>
+            <Button
+              className='header-button'
+              onClick={() => (currentWalletAddress ? navigate('/set-admin-wallet') : toast.warning('Please Connect Wallet First'))}
+            >
+              SetAdminWallet
+            </Button>
 
-                  <div className='nft-info-row'>
-                    <span>Collection Symbol:</span>
-                    <span>{data.collectionSymbol}</span>
-                  </div>
+            <Button
+              className='header-button'
+              onClick={() => (currentWalletAddress ? navigate('/add-payment-token') : toast.warning('Please Connect Wallet First'))}
+            >
+              AddPaymentToken
+            </Button>
 
-                  <div className='nft-info-row'>
-                    <span>Balance:</span>
-                    <span>{data.balance}</span>
-                  </div>
+            <Button
+              className='header-button'
+              onClick={() => (currentWalletAddress ? navigate('/remove-payment-token') : toast.warning('Please Connect Wallet First'))}
+            >
+              RemovePaymentToken
+            </Button>
 
-                  <div className='nft-info-row'>
-                    <span>Owner:</span>
-                    <span>{data.realOwner.address}</span>
-                  </div>
+            <Button
+              className='header-button'
+              onClick={() => (currentWalletAddress ? navigate('/add-items') : toast.warning('Please Connect Wallet First'))}
+            >
+              AddItems
+            </Button>
 
-                  <div className='buy-container'>
-                    <Button onClick={() => navigate(`/transfer-nft?nft-index=${index + 1}&nft-symbol=${data.nftSymbol}&nft-balance=${data.balance}`)}>
-                      Transfer NFT
-                    </Button>
-                  </div>
-                </div>
-              ))
-            ) : loading ? (
-              <div className='bordered-container'>
-                <strong>Loading...</strong>
-              </div>
-            ) : (
-              <div className='bordered-container'>
-                <strong>It's Look like you don't have any NFT on your wallet</strong>
-              </div>
-            )}
+            <Button
+              className='header-button'
+              onClick={() => (currentWalletAddress ? navigate('/purchase-items') : toast.warning('Please Connect Wallet First'))}
+            >
+              Purchase Items
+            </Button>
           </div>
-        ) : (
-          <div className='bordered-container'>
-            <strong>Please connect your Portkey Wallet and Create a new NFT Collection and NFT Tokens</strong>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

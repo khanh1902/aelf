@@ -17,7 +17,7 @@ namespace AElf.Contracts.FishtopiaSMC
 
         private const string _symbol = "ELF";
 
-        public override BoolValue Initialize(Empty input)
+        public override Empty Initialize(Empty input)
         {
             Assert(State.Initialized.Value == false, "Already initialized.");
 
@@ -26,94 +26,65 @@ namespace AElf.Contracts.FishtopiaSMC
             State.AdminWalletAddress.Value = Address.FromBase58(AdminWalletAddress);
             State.TokenContract.Value = Address.FromBase58(TokenContractAddress);
 
-            return new BoolValue { Value = true };
+            return new Empty();
         }
 
-        public override BoolValue SetAdminWallet(Address address)
+        public override Empty SetAdminWallet(AddressInput input)
         {
             AssertIsOwner();
-            try
-            {
-                State.AdminWalletAddress.Value = address;
-                return new BoolValue { Value = true };
-            }
-            catch (Exception)
-            {
-                return new BoolValue { Value = false };
-            }
+            State.AdminWalletAddress.Value = input.Address;
+            return new Empty();
         }
 
-        public override BoolValue AddPaymentTokens(PaymentTokenInput input)
+        public override Empty AddPaymentToken(AddressInput input)
         {
             AssertIsOwner();
-            try
+
+            if (State.PaymentTokens[input.Address] == null)
             {
-                bool added = false;
-                foreach (Address address in input.Address)
-                {
-                    if (State.PaymentTokens[address] != null) continue;
-                    State.PaymentTokens[address] = address;
-                    added = true;
-                }
-                return added == true ? new BoolValue { Value = true } : new BoolValue { Value = false };
+                State.PaymentTokens[input.Address] = input.Address;
             }
-            catch (Exception)
-            {
-                return new BoolValue { Value = false };
-            }
+            return new Empty();
         }
 
-        public override BoolValue RemovePaymentTokens(PaymentTokenInput input)
+        public override Empty RemovePaymentToken(AddressInput input)
         {
             AssertIsOwner();
-            try
+
+            if (State.PaymentTokens[input.Address] != null)
             {
-                bool removed = false;
-                foreach (Address address in input.Address)
-                {
-                    if (State.PaymentTokens[address] != null) continue;
-                    State.PaymentTokens.Remove(address);
-                    removed = true;
-                }
-                return removed == true ? new BoolValue { Value = true } : new BoolValue { Value = false };
+                State.PaymentTokens.Remove(input.Address);
             }
-            catch (Exception)
-            {
-                return new BoolValue { Value = false };
-            }
+            return new Empty();
         }
 
-        public override BoolValue AddItems(AddItemsInput input)
+        public override Empty AddItems(AddItemsInput input)
         {
             AssertIsOwner();
-            try
+            Assert(State.PaymentTokens[input.PaymentToken] != null, "Does Not Support This Payment Token.");
+
+            Assert(State.ItemsList[input.ItemsId] == null, "Items Already Exists.");
+            
+            ItemsDAO items = new()
             {
-                Assert(State.PaymentTokens[input.PaymentToken] == null, "Does Not Support This Payment Token.");
+                ItemsId = input.ItemsId,
+                IsAvailable = input.IsAvailable,
+                CanBuy = input.CanBuy,
+                PaymentToken = input.PaymentToken,
+                ItemsPrice = input.ItemsPrice
+            };
 
-                Assert(State.ItemsList[input.ItemsId] == null, "Items Already Exists.");
+            State.ItemsList[input.ItemsId] = items;
 
-                State.ItemsList[input.ItemsId] = new ItemsDAO
-                {
-                    ItemsId = input.ItemsId,
-                    IsAvailable = input.IsAvailable,
-                    CanBuy = input.CanBuy,
-                    ItemsPrice = input.ItemsPrice
-                };
-
-                return new BoolValue { Value = true };
-            }
-            catch (Exception)
-            {
-                return new BoolValue { Value = false };
-            }
+            return new Empty();
         }
 
-        public override BoolValue RemoveItems(StringValue itemsId)
+        public override Empty RemoveItems(StringValue itemsId)
         {
             AssertIsOwner();
             Assert(State.ItemsList[itemsId.Value] == null, "Items Not Found");
             State.ItemsList.Remove(itemsId.Value);
-            return new BoolValue { Value = true };
+            return new Empty();
         }
 
         public override BoolValue AvailableItems(StringValue itemsId)
@@ -125,69 +96,61 @@ namespace AElf.Contracts.FishtopiaSMC
             return new BoolValue { Value = true };
         }
 
-        public override BoolValue RenounceOwnership(Empty input)
+        public override Empty RenounceOwnership(Empty input)
         {
             AssertIsOwner();
             State.Owner.Value = Address.FromBase58("");
-            return new BoolValue { Value = true };
+            return new Empty();
         }
 
-        public override BoolValue TransferOwnership(Address address)
+        public override Empty TransferOwnership(AddressInput input)
         {
             AssertIsOwner();
             Assert(State.Owner.Value != Context.Sender, "Current Address Is The Owner.");
-            State.Owner.Value = Context.Sender;
-            return new BoolValue { Value = true };
+            State.Owner.Value = input.Address;
+            return new Empty();
         }
 
-        public override BoolValue PurchaseItems(PurchaseItemsInput input)
+        public override Empty PurchaseItems(PurchaseItemsInput input)
         {
-            try
+            ItemsDAO items = State.ItemsList[input.ItemsId];
+            Assert(items != null, "Items Not Found.");
+            Assert(items.IsAvailable != false, "Items Is Not Available.");
+            Assert(items.CanBuy != false, "Items Can Not Buy Now. Please try again.");
+            Assert(State.PaymentTokens[input.PaymentToken] != null, "Payment Token Does Not Match.");
+
+            long spenderBalance = State.TokenContract.GetBalance.Call(new GetBalanceInput
             {
-                ItemsDAO items = State.ItemsList[input.ItemsId];
-                Assert(items != null, "Items Not Found.");
-                Assert(items.IsAvailable != false, "Items Is Not Available.");
-                Assert(items.CanBuy != false, "Items Can Not Buy Now. Please try again.");
-                Assert(State.PaymentTokens[input.PaymentToken] != null, "Payment Token Does Not Match.");
+                Symbol = _symbol,
+                Owner = Context.Sender
+            }).Balance;
 
-                long spenderBalance = State.TokenContract.GetBalance.Call(new GetBalanceInput
-                {
-                    Symbol = _symbol,
-                    Owner = Context.Sender
-                }).Balance;
-
-                State.TokenContract.GetAllowance.Call(new GetAllowanceInput
-                {
-                    Owner = Context.Sender, // The address that approved the tokens
-                    Spender = State.AdminWalletAddress.Value, // The contract address
-                    Symbol = "ELF"
-                });
-
-                Assert(spenderBalance >= input.PayableAmount, "Not Enough Token.");
-
-                State.TokenContract.TransferFrom.Send(new TransferFromInput
-                {
-                    From = Context.Sender,
-                    To = State.AdminWalletAddress.Value,
-                    Symbol = _symbol,
-                    Amount = input.PayableAmount * _decimal,
-                });
-
-                Context.Fire(new PurchaseItemsEvent
-                {
-                    UserId = input.UserId,
-                    ItemsId = input.ItemsId,
-                    Spender = Context.Sender,
-                    PayableAmount = input.PayableAmount,
-                    PaymentToken = input.PaymentToken,
-                });
-                return new BoolValue { Value = true };
-
-            }
-            catch (Exception)
+            State.TokenContract.GetAllowance.Call(new GetAllowanceInput
             {
-                return new BoolValue { Value = false };
-            }
+                Owner = Context.Sender, // The address that approved the tokens
+                Spender = State.AdminWalletAddress.Value, // The contract address
+                Symbol = "ELF"
+            });
+
+            Assert(spenderBalance >= input.PayableAmount, "Not Enough Token.");
+
+            State.TokenContract.TransferFrom.Send(new TransferFromInput
+            {
+                From = Context.Sender,
+                To = State.AdminWalletAddress.Value,
+                Symbol = _symbol,
+                Amount = input.PayableAmount * _decimal,
+            });
+
+            Context.Fire(new PurchaseItemsEvent
+            {
+                UserId = input.UserId,
+                ItemsId = input.ItemsId,
+                Spender = Context.Sender,
+                PayableAmount = input.PayableAmount,
+                PaymentToken = input.PaymentToken,
+            });
+            return new Empty();
         }
 
         public override StringValue Owner(Empty input)
@@ -195,16 +158,11 @@ namespace AElf.Contracts.FishtopiaSMC
             return new StringValue { Value = Context.Sender.ToBase58() };
         }
 
-        public override BoolValue IsOwner(Empty input)
-        {
-            return Context.Sender == State.Owner.Value ? new BoolValue { Value = true } : new BoolValue { Value = false };
-        }
-
-        public override Int64Value BalanceOf(Address address)
+        public override Int64Value BalanceOf(AddressInput input)
         {
             var balance = State.TokenContract.GetBalance.Call(new GetBalanceInput
             {
-                Owner = address,
+                Owner = input.Address,
                 Symbol = _symbol
             }).Balance;
 
@@ -213,12 +171,13 @@ namespace AElf.Contracts.FishtopiaSMC
 
         public override StringValue AdminWallet(Empty input)
         {
+
             return State.AdminWalletAddress.Value == null ? new StringValue() : new StringValue { Value = State.AdminWalletAddress.Value.ToBase58() };
         }
 
-        public override BoolValue AvailablePaymentToken(Address address)
+        public override BoolValue AvailablePaymentToken(AddressInput input)
         {
-            return State.PaymentTokens[address] != null ? new BoolValue { Value = true } : new BoolValue { Value = false };
+            return State.PaymentTokens[input.Address] != null ? new BoolValue { Value = true } : new BoolValue { Value = false };
 
         }
 
