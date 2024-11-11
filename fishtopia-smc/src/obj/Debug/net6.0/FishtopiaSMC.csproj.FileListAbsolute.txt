@@ -23,3 +23,4 @@ D:\aelf\aelf\fishtopia-smc\src\bin\Debug\net6.0\FishtopiaSMC.deps.json
 D:\aelf\aelf\fishtopia-smc\src\bin\Debug\net6.0\FishtopiaSMC.dll
 D:\aelf\aelf\fishtopia-smc\src\bin\Debug\net6.0\FishtopiaSMC.pdb
 D:\aelf\aelf\fishtopia-smc\src\obj\Debug\net6.0\ref\FishtopiaSMC.dll
+D:\learn\aelf\contract\fishtopia-smc\src\obj\Debug\net6.0\FishtopiaSMC.sourcelink.json

@@ -11,7 +11,9 @@ namespace AElf.Contracts.FishtopiaSMC
     public class FishtopiaSMC : FishtopiaSMCContainer.FishtopiaSMCBase
     {
         private const string TokenContractAddress = "ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx"; // tDVW token contract address
-        private const string AdminAddress = "2U9EHbDw1g9jaTG4dRkaQicD2ejysj94CFVxHLengrBL3ijsQq";
+        private const string AdminWalletAddress = "2U9EHbDw1g9jaTG4dRkaQicD2ejysj94CFVxHLengrBL3ijsQq";
+
+        private const int _decimal = 8;
 
         private const string _symbol = "ELF";
 
@@ -21,18 +23,18 @@ namespace AElf.Contracts.FishtopiaSMC
 
             State.Initialized.Value = true;
             State.Owner.Value = Context.Sender;
-            State.AdminAddress.Value = Address.FromBase58(AdminAddress);
+            State.AdminWalletAddress.Value = Address.FromBase58(AdminWalletAddress);
             State.TokenContract.Value = Address.FromBase58(TokenContractAddress);
 
             return new BoolValue { Value = true };
         }
 
-        public override BoolValue SetAdminAddress(SetAdminAddressInput input)
+        public override BoolValue SetAdminWallet(Address address)
         {
             AssertIsOwner();
             try
             {
-                State.AdminAddress.Value = input.Address;
+                State.AdminWalletAddress.Value = address;
                 return new BoolValue { Value = true };
             }
             catch (Exception)
@@ -41,14 +43,39 @@ namespace AElf.Contracts.FishtopiaSMC
             }
         }
 
-        public override BoolValue AddPaymentToken(PaymentTokenInput input)
+        public override BoolValue AddPaymentTokens(PaymentTokenInput input)
         {
             AssertIsOwner();
             try
             {
-                if (State.PaymentTokenList[input.Address] != null) return new BoolValue { Value = true };
-                State.PaymentTokenList[input.Address] = input.Address;
-                return new BoolValue { Value = true };
+                bool added = false;
+                foreach (Address address in input.Address)
+                {
+                    if (State.PaymentTokens[address] != null) continue;
+                    State.PaymentTokens[address] = address;
+                    added = true;
+                }
+                return added == true ? new BoolValue { Value = true } : new BoolValue { Value = false };
+            }
+            catch (Exception)
+            {
+                return new BoolValue { Value = false };
+            }
+        }
+
+        public override BoolValue RemovePaymentTokens(PaymentTokenInput input)
+        {
+            AssertIsOwner();
+            try
+            {
+                bool removed = false;
+                foreach (Address address in input.Address)
+                {
+                    if (State.PaymentTokens[address] != null) continue;
+                    State.PaymentTokens.Remove(address);
+                    removed = true;
+                }
+                return removed == true ? new BoolValue { Value = true } : new BoolValue { Value = false };
             }
             catch (Exception)
             {
@@ -61,23 +88,17 @@ namespace AElf.Contracts.FishtopiaSMC
             AssertIsOwner();
             try
             {
-                Assert(State.PaymentTokenList[input.PaymentToken] == null, "Does Not Support this Payment Token.");
+                Assert(State.PaymentTokens[input.PaymentToken] == null, "Does Not Support This Payment Token.");
 
-                List<ItemsDAO> itemsList = State.ItemsList[input.PaymentToken];
-                foreach (ItemsDAO items in itemsList)
-                {
-                    Assert(items.ItemsId != input.ItemsId, "Items Already Exists.");
-                }
+                Assert(State.ItemsList[input.ItemsId] == null, "Items Already Exists.");
 
-                itemsList.Add(new ItemsDAO
+                State.ItemsList[input.ItemsId] = new ItemsDAO
                 {
                     ItemsId = input.ItemsId,
                     IsAvailable = input.IsAvailable,
                     CanBuy = input.CanBuy,
                     ItemsPrice = input.ItemsPrice
-                });
-
-                State.ItemsList[input.PaymentToken] = itemsList;
+                };
 
                 return new BoolValue { Value = true };
             }
@@ -87,8 +108,35 @@ namespace AElf.Contracts.FishtopiaSMC
             }
         }
 
-        public override BoolValue RemoveItems(RemoveItemsInput input)
+        public override BoolValue RemoveItems(StringValue itemsId)
         {
+            AssertIsOwner();
+            Assert(State.ItemsList[itemsId.Value] == null, "Items Not Found");
+            State.ItemsList.Remove(itemsId.Value);
+            return new BoolValue { Value = true };
+        }
+
+        public override BoolValue AvailableItems(StringValue itemsId)
+        {
+            AssertIsOwner();
+            ItemsDAO items = State.ItemsList[itemsId.Value];
+
+            if (items == null || items.IsAvailable == false) return new BoolValue { Value = false };
+            return new BoolValue { Value = true };
+        }
+
+        public override BoolValue RenounceOwnership(Empty input)
+        {
+            AssertIsOwner();
+            State.Owner.Value = Address.FromBase58("");
+            return new BoolValue { Value = true };
+        }
+
+        public override BoolValue TransferOwnership(Address address)
+        {
+            AssertIsOwner();
+            Assert(State.Owner.Value != Context.Sender, "Current Address Is The Owner.");
+            State.Owner.Value = Context.Sender;
             return new BoolValue { Value = true };
         }
 
@@ -96,6 +144,12 @@ namespace AElf.Contracts.FishtopiaSMC
         {
             try
             {
+                ItemsDAO items = State.ItemsList[input.ItemsId];
+                Assert(items != null, "Items Not Found.");
+                Assert(items.IsAvailable != false, "Items Is Not Available.");
+                Assert(items.CanBuy != false, "Items Can Not Buy Now. Please try again.");
+                Assert(State.PaymentTokens[input.PaymentToken] != null, "Payment Token Does Not Match.");
+
                 long spenderBalance = State.TokenContract.GetBalance.Call(new GetBalanceInput
                 {
                     Symbol = _symbol,
@@ -105,24 +159,27 @@ namespace AElf.Contracts.FishtopiaSMC
                 State.TokenContract.GetAllowance.Call(new GetAllowanceInput
                 {
                     Owner = Context.Sender, // The address that approved the tokens
-                    Spender = State.AdminAddress.Value, // The contract address
+                    Spender = State.AdminWalletAddress.Value, // The contract address
                     Symbol = "ELF"
                 });
 
-                Assert(spenderBalance >= input.Amount, "Not Enough Token.");
+                Assert(spenderBalance >= input.PayableAmount, "Not Enough Token.");
 
                 State.TokenContract.TransferFrom.Send(new TransferFromInput
                 {
                     From = Context.Sender,
-                    To = State.AdminAddress.Value,
+                    To = State.AdminWalletAddress.Value,
                     Symbol = _symbol,
-                    Amount = input.Amount,
+                    Amount = input.PayableAmount * _decimal,
                 });
 
                 Context.Fire(new PurchaseItemsEvent
                 {
+                    UserId = input.UserId,
+                    ItemsId = input.ItemsId,
                     Spender = Context.Sender,
-                    Price = input.Amount
+                    PayableAmount = input.PayableAmount,
+                    PaymentToken = input.PaymentToken,
                 });
                 return new BoolValue { Value = true };
 
@@ -133,30 +190,41 @@ namespace AElf.Contracts.FishtopiaSMC
             }
         }
 
-        private void AssertIsOwner()
+        public override StringValue Owner(Empty input)
         {
-            Assert(Context.Sender == State.Owner.Value, "Unauthorized to perform the action.");
+            return new StringValue { Value = Context.Sender.ToBase58() };
         }
 
-        public override Int64Value BalanceOf(BalanceOfInput input)
+        public override BoolValue IsOwner(Empty input)
+        {
+            return Context.Sender == State.Owner.Value ? new BoolValue { Value = true } : new BoolValue { Value = false };
+        }
+
+        public override Int64Value BalanceOf(Address address)
         {
             var balance = State.TokenContract.GetBalance.Call(new GetBalanceInput
             {
-                Owner = input.Address,
+                Owner = address,
                 Symbol = _symbol
             }).Balance;
 
             return new Int64Value { Value = balance };
         }
 
-        public override StringValue GetOwner(Empty input)
+        public override StringValue AdminWallet(Empty input)
         {
-            return new StringValue { Value = Context.Sender.ToBase58() };
+            return State.AdminWalletAddress.Value == null ? new StringValue() : new StringValue { Value = State.AdminWalletAddress.Value.ToBase58() };
         }
 
-        public override StringValue GetAdminAddress(Empty input)
+        public override BoolValue AvailablePaymentToken(Address address)
         {
-            return State.AdminAddress.Value == null ? new StringValue() : new StringValue { Value = State.AdminAddress.Value.ToBase58() };
+            return State.PaymentTokens[address] != null ? new BoolValue { Value = true } : new BoolValue { Value = false };
+
+        }
+
+        private void AssertIsOwner()
+        {
+            Assert(Context.Sender == State.Owner.Value, "Unauthorized To Perform The Action.");
         }
     }
 }

@@ -24,8 +24,11 @@ namespace AElf.Contracts.FishtopiaSMC {
     {
       return new PurchaseItemsEvent
       {
+        UserId = UserId,
+        ItemsId = ItemsId,
         Spender = Spender,
-        Price = Price,
+        PayableAmount = PayableAmount,
+        PaymentToken = PaymentToken,
       };
     }
   }
@@ -38,14 +41,11 @@ namespace AElf.Contracts.FishtopiaSMC {
     #region Marshallers
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Empty.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.BoolValue> __Marshaller_google_protobuf_BoolValue = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.BoolValue.Parser.ParseFrom);
-    static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.SetAdminAddressInput> __Marshaller_SetAdminAddressInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.SetAdminAddressInput.Parser.ParseFrom);
+    static readonly aelf::Marshaller<global::AElf.Types.Address> __Marshaller_aelf_Address = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Types.Address.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.PurchaseItemsInput> __Marshaller_PurchaseItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.PurchaseItemsInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput> __Marshaller_PaymentTokenInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.AddItemsInput> __Marshaller_AddItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.AddItemsInput.Parser.ParseFrom);
-    static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.ItemsListOutput> __Marshaller_ItemsListOutput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.ItemsListOutput.Parser.ParseFrom);
-    static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput> __Marshaller_RemoveItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.StringValue> __Marshaller_google_protobuf_StringValue = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.StringValue.Parser.ParseFrom);
-    static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.BalanceOfInput> __Marshaller_BalanceOfInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.BalanceOfInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.Int64Value> __Marshaller_google_protobuf_Int64Value = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Int64Value.Parser.ParseFrom);
     #endregion
 
@@ -57,11 +57,11 @@ namespace AElf.Contracts.FishtopiaSMC {
         __Marshaller_google_protobuf_Empty,
         __Marshaller_google_protobuf_BoolValue);
 
-    static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.SetAdminAddressInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_SetAdminAddress = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.SetAdminAddressInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+    static readonly aelf::Method<global::AElf.Types.Address, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_SetAdminWallet = new aelf::Method<global::AElf.Types.Address, global::Google.Protobuf.WellKnownTypes.BoolValue>(
         aelf::MethodType.Action,
         __ServiceName,
-        "SetAdminAddress",
-        __Marshaller_SetAdminAddressInput,
+        "SetAdminWallet",
+        __Marshaller_aelf_Address,
         __Marshaller_google_protobuf_BoolValue);
 
     static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.PurchaseItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_PurchaseItems = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.PurchaseItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
@@ -71,11 +71,25 @@ namespace AElf.Contracts.FishtopiaSMC {
         __Marshaller_PurchaseItemsInput,
         __Marshaller_google_protobuf_BoolValue);
 
-    static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_AddPaymentToken = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+    static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_AddPaymentTokens = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
         aelf::MethodType.Action,
         __ServiceName,
-        "AddPaymentToken",
+        "AddPaymentTokens",
         __Marshaller_PaymentTokenInput,
+        __Marshaller_google_protobuf_BoolValue);
+
+    static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_RemovePaymentTokens = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+        aelf::MethodType.Action,
+        __ServiceName,
+        "RemovePaymentTokens",
+        __Marshaller_PaymentTokenInput,
+        __Marshaller_google_protobuf_BoolValue);
+
+    static readonly aelf::Method<global::AElf.Types.Address, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_AvailablePaymentToken = new aelf::Method<global::AElf.Types.Address, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+        aelf::MethodType.Action,
+        __ServiceName,
+        "AvailablePaymentToken",
+        __Marshaller_aelf_Address,
         __Marshaller_google_protobuf_BoolValue);
 
     static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.AddItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_AddItems = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.AddItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
@@ -85,40 +99,61 @@ namespace AElf.Contracts.FishtopiaSMC {
         __Marshaller_AddItemsInput,
         __Marshaller_google_protobuf_BoolValue);
 
-    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::AElf.Contracts.FishtopiaSMC.ItemsListOutput> __Method_GetAllItems = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::AElf.Contracts.FishtopiaSMC.ItemsListOutput>(
-        aelf::MethodType.Action,
-        __ServiceName,
-        "GetAllItems",
-        __Marshaller_google_protobuf_Empty,
-        __Marshaller_ItemsListOutput);
-
-    static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_RemoveItems = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.StringValue, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_RemoveItems = new aelf::Method<global::Google.Protobuf.WellKnownTypes.StringValue, global::Google.Protobuf.WellKnownTypes.BoolValue>(
         aelf::MethodType.Action,
         __ServiceName,
         "RemoveItems",
-        __Marshaller_RemoveItemsInput,
+        __Marshaller_google_protobuf_StringValue,
         __Marshaller_google_protobuf_BoolValue);
 
-    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue> __Method_GetAdminAddress = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue>(
+    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.StringValue, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_AvailableItems = new aelf::Method<global::Google.Protobuf.WellKnownTypes.StringValue, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+        aelf::MethodType.Action,
+        __ServiceName,
+        "AvailableItems",
+        __Marshaller_google_protobuf_StringValue,
+        __Marshaller_google_protobuf_BoolValue);
+
+    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_RenounceOwnership = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+        aelf::MethodType.Action,
+        __ServiceName,
+        "RenounceOwnership",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_google_protobuf_BoolValue);
+
+    static readonly aelf::Method<global::AElf.Types.Address, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_TransferOwnership = new aelf::Method<global::AElf.Types.Address, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+        aelf::MethodType.Action,
+        __ServiceName,
+        "TransferOwnership",
+        __Marshaller_aelf_Address,
+        __Marshaller_google_protobuf_BoolValue);
+
+    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue> __Method_Owner = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue>(
         aelf::MethodType.View,
         __ServiceName,
-        "GetAdminAddress",
+        "Owner",
         __Marshaller_google_protobuf_Empty,
         __Marshaller_google_protobuf_StringValue);
 
-    static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.BalanceOfInput, global::Google.Protobuf.WellKnownTypes.Int64Value> __Method_BalanceOf = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.BalanceOfInput, global::Google.Protobuf.WellKnownTypes.Int64Value>(
+    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_IsOwner = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+        aelf::MethodType.View,
+        __ServiceName,
+        "IsOwner",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_google_protobuf_BoolValue);
+
+    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue> __Method_AdminWallet = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue>(
+        aelf::MethodType.View,
+        __ServiceName,
+        "AdminWallet",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_google_protobuf_StringValue);
+
+    static readonly aelf::Method<global::AElf.Types.Address, global::Google.Protobuf.WellKnownTypes.Int64Value> __Method_BalanceOf = new aelf::Method<global::AElf.Types.Address, global::Google.Protobuf.WellKnownTypes.Int64Value>(
         aelf::MethodType.View,
         __ServiceName,
         "BalanceOf",
-        __Marshaller_BalanceOfInput,
+        __Marshaller_aelf_Address,
         __Marshaller_google_protobuf_Int64Value);
-
-    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue> __Method_GetOwner = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.StringValue>(
-        aelf::MethodType.View,
-        __ServiceName,
-        "GetOwner",
-        __Marshaller_google_protobuf_Empty,
-        __Marshaller_google_protobuf_StringValue);
 
     #endregion
 
@@ -149,7 +184,7 @@ namespace AElf.Contracts.FishtopiaSMC {
         throw new global::System.NotImplementedException();
       }
 
-      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue SetAdminAddress(global::AElf.Contracts.FishtopiaSMC.SetAdminAddressInput input)
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue SetAdminWallet(global::AElf.Types.Address input)
       {
         throw new global::System.NotImplementedException();
       }
@@ -159,7 +194,17 @@ namespace AElf.Contracts.FishtopiaSMC {
         throw new global::System.NotImplementedException();
       }
 
-      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue AddPaymentToken(global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput input)
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue AddPaymentTokens(global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput input)
+      {
+        throw new global::System.NotImplementedException();
+      }
+
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue RemovePaymentTokens(global::AElf.Contracts.FishtopiaSMC.PaymentTokenInput input)
+      {
+        throw new global::System.NotImplementedException();
+      }
+
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue AvailablePaymentToken(global::AElf.Types.Address input)
       {
         throw new global::System.NotImplementedException();
       }
@@ -169,27 +214,42 @@ namespace AElf.Contracts.FishtopiaSMC {
         throw new global::System.NotImplementedException();
       }
 
-      public virtual global::AElf.Contracts.FishtopiaSMC.ItemsListOutput GetAllItems(global::Google.Protobuf.WellKnownTypes.Empty input)
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue RemoveItems(global::Google.Protobuf.WellKnownTypes.StringValue input)
       {
         throw new global::System.NotImplementedException();
       }
 
-      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue RemoveItems(global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput input)
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue AvailableItems(global::Google.Protobuf.WellKnownTypes.StringValue input)
       {
         throw new global::System.NotImplementedException();
       }
 
-      public virtual global::Google.Protobuf.WellKnownTypes.StringValue GetAdminAddress(global::Google.Protobuf.WellKnownTypes.Empty input)
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue RenounceOwnership(global::Google.Protobuf.WellKnownTypes.Empty input)
       {
         throw new global::System.NotImplementedException();
       }
 
-      public virtual global::Google.Protobuf.WellKnownTypes.Int64Value BalanceOf(global::AElf.Contracts.FishtopiaSMC.BalanceOfInput input)
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue TransferOwnership(global::AElf.Types.Address input)
       {
         throw new global::System.NotImplementedException();
       }
 
-      public virtual global::Google.Protobuf.WellKnownTypes.StringValue GetOwner(global::Google.Protobuf.WellKnownTypes.Empty input)
+      public virtual global::Google.Protobuf.WellKnownTypes.StringValue Owner(global::Google.Protobuf.WellKnownTypes.Empty input)
+      {
+        throw new global::System.NotImplementedException();
+      }
+
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue IsOwner(global::Google.Protobuf.WellKnownTypes.Empty input)
+      {
+        throw new global::System.NotImplementedException();
+      }
+
+      public virtual global::Google.Protobuf.WellKnownTypes.StringValue AdminWallet(global::Google.Protobuf.WellKnownTypes.Empty input)
+      {
+        throw new global::System.NotImplementedException();
+      }
+
+      public virtual global::Google.Protobuf.WellKnownTypes.Int64Value BalanceOf(global::AElf.Types.Address input)
       {
         throw new global::System.NotImplementedException();
       }
@@ -201,15 +261,20 @@ namespace AElf.Contracts.FishtopiaSMC {
       return aelf::ServerServiceDefinition.CreateBuilder()
           .AddDescriptors(Descriptors)
           .AddMethod(__Method_Initialize, serviceImpl.Initialize)
-          .AddMethod(__Method_SetAdminAddress, serviceImpl.SetAdminAddress)
+          .AddMethod(__Method_SetAdminWallet, serviceImpl.SetAdminWallet)
           .AddMethod(__Method_PurchaseItems, serviceImpl.PurchaseItems)
-          .AddMethod(__Method_AddPaymentToken, serviceImpl.AddPaymentToken)
+          .AddMethod(__Method_AddPaymentTokens, serviceImpl.AddPaymentTokens)
+          .AddMethod(__Method_RemovePaymentTokens, serviceImpl.RemovePaymentTokens)
+          .AddMethod(__Method_AvailablePaymentToken, serviceImpl.AvailablePaymentToken)
           .AddMethod(__Method_AddItems, serviceImpl.AddItems)
-          .AddMethod(__Method_GetAllItems, serviceImpl.GetAllItems)
           .AddMethod(__Method_RemoveItems, serviceImpl.RemoveItems)
-          .AddMethod(__Method_GetAdminAddress, serviceImpl.GetAdminAddress)
-          .AddMethod(__Method_BalanceOf, serviceImpl.BalanceOf)
-          .AddMethod(__Method_GetOwner, serviceImpl.GetOwner).Build();
+          .AddMethod(__Method_AvailableItems, serviceImpl.AvailableItems)
+          .AddMethod(__Method_RenounceOwnership, serviceImpl.RenounceOwnership)
+          .AddMethod(__Method_TransferOwnership, serviceImpl.TransferOwnership)
+          .AddMethod(__Method_Owner, serviceImpl.Owner)
+          .AddMethod(__Method_IsOwner, serviceImpl.IsOwner)
+          .AddMethod(__Method_AdminWallet, serviceImpl.AdminWallet)
+          .AddMethod(__Method_BalanceOf, serviceImpl.BalanceOf).Build();
     }
 
   }

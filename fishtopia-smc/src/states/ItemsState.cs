@@ -7,6 +7,6 @@ namespace AElf.Contracts.FishtopiaSMC
 {
     public partial class FishtopiaSMCState
     {
-        public MappedState<Address, List<ItemsDAO>> ItemsList { get; set; }
+        public MappedState<string, ItemsDAO> ItemsList { get; set; }
     }
 }

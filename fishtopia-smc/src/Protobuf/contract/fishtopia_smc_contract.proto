@@ -16,62 +16,71 @@ service FishtopiaSMC {
   rpc Initialize(google.protobuf.Empty) returns (google.protobuf.BoolValue) {
   }
   
-  rpc SetAdminAddress (SetAdminAddressInput) returns (google.protobuf.BoolValue) {
+  rpc SetAdminWallet (aelf.Address) returns (google.protobuf.BoolValue) {
   }
 
   rpc PurchaseItems (PurchaseItemsInput) returns (google.protobuf.BoolValue) {
   }
 
-  rpc AddPaymentToken(PaymentTokenInput) returns (google.protobuf.BoolValue) {
-  } 
+  rpc AddPaymentTokens(PaymentTokenInput) returns (google.protobuf.BoolValue) {
+  }
+
+  rpc RemovePaymentTokens (PaymentTokenInput) returns (google.protobuf.BoolValue) {
+  }
+
+  rpc AvailablePaymentToken (aelf.Address) returns (google.protobuf.BoolValue) {
+  }
 
   rpc AddItems (AddItemsInput) returns (google.protobuf.BoolValue) {
   }
 
-  rpc GetAllItems (google.protobuf.Empty) returns (ItemsListOutput) {
+  rpc RemoveItems(google.protobuf.StringValue) returns (google.protobuf.BoolValue) {
   }
 
-  rpc RemoveItems(RemoveItemsInput) returns (google.protobuf.BoolValue) {
+  rpc AvailableItems (google.protobuf.StringValue) returns (google.protobuf.BoolValue) {
   }
 
-  rpc GetAdminAddress(google.protobuf.Empty) returns (google.protobuf.StringValue) {
+  rpc RenounceOwnership (google.protobuf.Empty) returns (google.protobuf.BoolValue) {
+  }
+
+  rpc TransferOwnership (aelf.Address) returns (google.protobuf.BoolValue) {
+  }
+
+  rpc Owner (google.protobuf.Empty) returns (google.protobuf.StringValue) {
+    option (aelf.is_view) = true;
+  }
+
+  rpc IsOwner(google.protobuf.Empty) returns (google.protobuf.BoolValue) {
+    option (aelf.is_view) = true;
+  }
+
+  rpc AdminWallet(google.protobuf.Empty) returns (google.protobuf.StringValue) {
     option (aelf.is_view) = true;
   }
   
-  rpc BalanceOf (BalanceOfInput) returns (google.protobuf.Int64Value) {
+  rpc BalanceOf (aelf.Address) returns (google.protobuf.Int64Value) {
     option (aelf.is_view) = true;
   }
-
-  rpc GetOwner (google.protobuf.Empty) returns (google.protobuf.StringValue) {
-    option (aelf.is_view) = true;
-  }
-}
-
-message SetAdminAddressInput {
-  aelf.Address address = 1;
-}
-
-message BalanceOfInput {
-  aelf.Address address = 1;
 }
 
 message PurchaseItemsInput {
-  int64 amount = 1;
+  int64 payable_amount = 1;
+  string user_id = 2;
+  string items_id = 3;
+  aelf.Address payment_token = 4;
 }
 
 message PurchaseItemsEvent {
   option (aelf.is_event) = true;
-  aelf.Address spender = 2;
-  int64 price = 3;
-}
-
-message ApproveInputData {
+  string user_id = 3;
+  string items_id = 4;
   aelf.Address spender = 1;
-  int64 amount = 2;
+  int64 payable_amount = 2;
+  aelf.Address payment_token = 5;
 }
 
 message PaymentTokenInput {
-  aelf.Address address = 1;
+  repeated aelf.Address address = 1;
 }
 
 message AddItemsInput {
@@ -97,3 +106,4 @@ message ItemsOutput {
 message ItemsListOutput {
   repeated ItemsOutput items_output = 1;
 }
+

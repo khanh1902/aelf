@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 type IContract = ReturnType<IChain['getContract']>;
 
 export const MAIN_CHAIN_TESTNET_SMC = 'JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE';
-export const DAPP_CHAIN_TESTNET_SMC = 'ExVMRJsSket5yKnjPiAy367u2sZcy1MLEUS1Xtiikpqo2qtJ2';
+export const DAPP_CHAIN_TESTNET_SMC = '21NjacqoQR5cUXuW91c9ACPwZG4CJm6gXd5gSGcYFhJvsKvDmB';
 export const NATIVE_TOKEN_SMC = 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx';
 
 // Custom Hook for interacting with NFT Smart Contracts
