@@ -1,0 +1,39 @@
+task bootRunDev() {
+    group = 'application'
+    finalizedBy bootRun
+    bootRun.configure {
+        print('Setting up development environment variables')
+        file('.env.dev').readLines().each() {
+            if (!it.isEmpty() && !it.startsWith("#")) {
+                def pos = it.indexOf("=")
+                def key = it.substring(0, pos)
+                def value = it.substring(pos + 1)
+                environment(key, value)
+            }
+        }
+    }
+}
+
+task dockerImage(dependsOn: bootJar) {
+    group = 'docker'
+    description = 'Publish source code to output directory'
+    doLast {
+        exec {
+            workingDir "${projectDir}"
+            executable 'docker'
+            args = ["build", "-t", "${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}", ".", "--no-cache"]
+        }
+    }
+}
+
+task dockerRegistryPush(dependsOn: dockerImage) {
+    group = 'docker'
+    description = 'Publish to registry'
+    doLast {
+        exec {
+            workingDir "${projectDir}"
+            executable 'docker'
+            args = ["push", "${DOCKER_IMAGE}:${DOCKER_IMAGE_TAG}"]
+        }
+    }
+}

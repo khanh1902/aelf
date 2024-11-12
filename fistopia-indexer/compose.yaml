@@ -1,0 +1,9 @@
+services:
+  postgres-1:
+    image: 'postgres:15.4-alpine'
+    environment:
+      - 'POSTGRES_DB=fishtopia-dev'
+      - 'POSTGRES_USER=user'
+      - 'POSTGRES_PASSWORD=password'
+    ports:
+      - '5433:5432'
