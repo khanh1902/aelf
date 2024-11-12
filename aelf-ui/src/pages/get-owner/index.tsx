@@ -23,7 +23,7 @@ const GetOwner = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
     try {
       
       const values = {};
-      const data = await sideChainSmartContract?.callViewMethod('Owner', values, {});
+      const data = await sideChainSmartContract?.callViewMethod('Test', values);
       toast.update(setAdminWalletLoadingId, {
         render: 'Load Admin Wallet Successfully!',
         type: 'success',

@@ -8,45 +8,35 @@ import { removeNotification } from '@/lib/utils';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
-const GetBalanceOf = ({ provider, currentWalletAddress }: { provider: IPortkeyProvider | null; currentWalletAddress: string }) => {
+const GetAdminWallet = ({ provider, currentWalletAddress }: { provider: IPortkeyProvider | null; currentWalletAddress: string }) => {
   const { sideChainSmartContract } = useSmartContract(provider);
-  const [balanceOf, setBalanceOf] = useState<string>('');
   const [address, setAddress] = useState<Address>('');
   const navigate = useNavigate();
 
   const handleReturnClick = () => {
     navigate('/');
   };
-
-  const handleItemsInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setAddress(value);
-  };
-
   // Handle Transfer Submit Form
   const onSubmit = async () => {
-    const getBalanceOfLoadingId = toast.loading('Get Balance Of Executing');
+    const getAdminWalletLoadingId = toast.loading('Load Admin Wallet Executing');
 
     try {
-      const values = {
-        address,
-      };
-      const result = await sideChainSmartContract?.callViewMethod('BalanceOf', values);
+      const values = {};
+      const result = await sideChainSmartContract?.callViewMethod('AdminWallet', values);
       if (result && result.data && result.data.value) {
-        setBalanceOf(result.data.value);
-        toast.update(getBalanceOfLoadingId, {
-          render: 'Get Balance Of Successfully!',
-          type: 'success',
-          isLoading: false,
-        });
+        setAddress(result.data.value);
       }
-      else {
-        throw new Error ('Get Balance Failed');
-      }
-      removeNotification(getBalanceOfLoadingId);
+      toast.update(getAdminWalletLoadingId, {
+        render: 'Load Admin Wallet Successfully!',
+        type: 'success',
+        isLoading: false,
+      });
+      removeNotification(getAdminWalletLoadingId);
     } catch (error: any) {
       console.error(error.message, '=====error');
-      removeNotification(getBalanceOfLoadingId);
+      console.error(error);
+      toast.error(error.message);
+      removeNotification(getAdminWalletLoadingId);
     }
   };
 
@@ -54,15 +44,12 @@ const GetBalanceOf = ({ provider, currentWalletAddress }: { provider: IPortkeyPr
     <div className='form-wrapper'>
       <div className='form-container'>
         <div className='form-content'>
-          <h2 className='form-title'>BalanceOf</h2>
+          <h2 className='form-title'>Owner</h2>
           <div className='input-group'>
-            <div className='input-group'>
-              <input type='text' name='amount' value={address} onChange={handleItemsInputChange} placeholder='Address'/>
-            </div>
-            {balanceOf ? (
+            {address ? (
               <div className='nft-collection'>
                 <div className='bordered-container'>
-                  <strong>Result = {balanceOf} ELF.</strong>
+                  <strong>Result: {address}</strong>
                 </div>
               </div>
             ) : (
@@ -84,4 +71,4 @@ const GetBalanceOf = ({ provider, currentWalletAddress }: { provider: IPortkeyPr
   );
 };
 
-export default GetBalanceOf;
+export default GetAdminWallet;

@@ -5,13 +5,13 @@ import { toast } from 'react-toastify';
 import './transfer-nft.scss';
 import useSmartContract from '@/hooks/useSmartContract';
 import { removeNotification } from '@/lib/utils';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 
-const GetBalanceOf = ({ provider, currentWalletAddress }: { provider: IPortkeyProvider | null; currentWalletAddress: string }) => {
+const AvailableItems = ({ provider, currentWalletAddress }: { provider: IPortkeyProvider | null; currentWalletAddress: string }) => {
   const { sideChainSmartContract } = useSmartContract(provider);
-  const [balanceOf, setBalanceOf] = useState<string>('');
-  const [address, setAddress] = useState<Address>('');
+  const [result, setResult] = useState<boolean | null>(null);
+  const [itemsId, setItemsId] = useState<string>('');
   const navigate = useNavigate();
 
   const handleReturnClick = () => {
@@ -20,33 +20,30 @@ const GetBalanceOf = ({ provider, currentWalletAddress }: { provider: IPortkeyPr
 
   const handleItemsInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setAddress(value);
+    setItemsId(value);
   };
 
   // Handle Transfer Submit Form
   const onSubmit = async () => {
-    const getBalanceOfLoadingId = toast.loading('Get Balance Of Executing');
+    const availableItemsLoadingId = toast.loading('Call Available Items Executing');
 
     try {
       const values = {
-        address,
+        itemsId,
       };
-      const result = await sideChainSmartContract?.callViewMethod('BalanceOf', values);
+      const result = await sideChainSmartContract?.callViewMethod('AvailableItems', values);
       if (result && result.data && result.data.value) {
-        setBalanceOf(result.data.value);
-        toast.update(getBalanceOfLoadingId, {
-          render: 'Get Balance Of Successfully!',
+        setResult(result.data.value);
+        toast.update(availableItemsLoadingId, {
+          render: 'Call Available Items Successfully!',
           type: 'success',
           isLoading: false,
         });
       }
-      else {
-        throw new Error ('Get Balance Failed');
-      }
-      removeNotification(getBalanceOfLoadingId);
+      removeNotification(availableItemsLoadingId);
     } catch (error: any) {
-      console.error(error.message, '=====error');
-      removeNotification(getBalanceOfLoadingId);
+      console.error(error, '=====error');
+      removeNotification(availableItemsLoadingId);
     }
   };
 
@@ -54,20 +51,16 @@ const GetBalanceOf = ({ provider, currentWalletAddress }: { provider: IPortkeyPr
     <div className='form-wrapper'>
       <div className='form-container'>
         <div className='form-content'>
-          <h2 className='form-title'>BalanceOf</h2>
+          <h2 className='form-title'>Available Items</h2>
           <div className='input-group'>
             <div className='input-group'>
-              <input type='text' name='amount' value={address} onChange={handleItemsInputChange} placeholder='Address'/>
+              <input type='text' name='itemsId' value={itemsId} onChange={handleItemsInputChange} placeholder='Items Id' />
             </div>
-            {balanceOf ? (
-              <div className='nft-collection'>
-                <div className='bordered-container'>
-                  <strong>Result = {balanceOf} ELF.</strong>
-                </div>
+            <div className='nft-collection'>
+              <div className='bordered-container'>
+                <strong>Result = {result ? 'true' : 'false'}</strong>
               </div>
-            ) : (
-              <></>
-            )}
+            </div>
           </div>
 
           <div className='button-container'>
@@ -84,4 +77,4 @@ const GetBalanceOf = ({ provider, currentWalletAddress }: { provider: IPortkeyPr
   );
 };
 
-export default GetBalanceOf;
+export default AvailableItems;

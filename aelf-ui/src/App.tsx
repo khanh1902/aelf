@@ -8,13 +8,18 @@ import HomePage from './pages/home';
 import './app.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SetAdminWallet from './pages/set-admid-wallet';
-import GetOwner from './pages/owner/get-owner';
+import SetAdminWallet from './pages/set-admin-wallet';
+import GetOwner from './pages/get-owner';
 import GetBalanceOf from './pages/get-balance-of';
 import AddPaymentToken from './pages/add-payment-token';
 import RemovePaymentToken from './pages/remove-payment-token';
 import AddItems from './pages/add-items';
 import PurchaseItems from './pages/purchase-items';
+import RemoveItems from './pages/remove-items';
+import TransferOwnerShip from './pages/transfer-owner-ship';
+import AvailablePaymentToken from './pages/available-payment-token';
+import AvailableItems from './pages/available-items';
+import GetAdminWallet from './pages/get-admin-wallet';
 
 const App = () => {
   const [isConnected, setIsConnected] = useState(false);
@@ -44,6 +49,11 @@ const App = () => {
             <Route path='/add-payment-token' element={<AddPaymentToken provider={provider} currentWalletAddress={currentWalletAddress} />} />
             <Route path='/remove-payment-token' element={<RemovePaymentToken provider={provider} currentWalletAddress={currentWalletAddress} />} />
             <Route path='/add-items' element={<AddItems provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/remove-items' element={<RemoveItems provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/transfer-owner-ship' element={<TransferOwnerShip provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/available-payment-token' element={<AvailablePaymentToken provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/available-items' element={<AvailableItems provider={provider} currentWalletAddress={currentWalletAddress} />} />
+            <Route path='/get-admin-wallet' element={<GetAdminWallet provider={provider} currentWalletAddress={currentWalletAddress} />} />
           </Fragment>
         )}
       </Routes>

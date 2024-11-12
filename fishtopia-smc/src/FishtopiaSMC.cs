@@ -64,14 +64,14 @@ namespace AElf.Contracts.FishtopiaSMC
             Assert(State.PaymentTokens[input.PaymentToken] != null, "Does Not Support This Payment Token.");
 
             Assert(State.ItemsList[input.ItemsId] == null, "Items Already Exists.");
-            
+
             ItemsDAO items = new()
             {
                 ItemsId = input.ItemsId,
                 IsAvailable = input.IsAvailable,
                 CanBuy = input.CanBuy,
                 PaymentToken = input.PaymentToken,
-                ItemsPrice = input.ItemsPrice
+                ItemsPrice = input.ItemsPrice * _decimal
             };
 
             State.ItemsList[input.ItemsId] = items;
@@ -79,35 +79,26 @@ namespace AElf.Contracts.FishtopiaSMC
             return new Empty();
         }
 
-        public override Empty RemoveItems(StringValue itemsId)
+        public override Empty RemoveItems(RemoveItemsInput input)
         {
             AssertIsOwner();
-            Assert(State.ItemsList[itemsId.Value] == null, "Items Not Found");
-            State.ItemsList.Remove(itemsId.Value);
+            Assert(State.ItemsList[input.ItemsId] != null, "Items Not Found");
+            State.ItemsList.Remove(input.ItemsId);
             return new Empty();
         }
 
-        public override BoolValue AvailableItems(StringValue itemsId)
+        public override BoolValue AvailableItems(AvailableItemsInput input)
         {
-            AssertIsOwner();
-            ItemsDAO items = State.ItemsList[itemsId.Value];
-
+            ItemsDAO items = State.ItemsList[input.ItemsId];
             if (items == null || items.IsAvailable == false) return new BoolValue { Value = false };
             return new BoolValue { Value = true };
-        }
-
-        public override Empty RenounceOwnership(Empty input)
-        {
-            AssertIsOwner();
-            State.Owner.Value = Address.FromBase58("");
-            return new Empty();
         }
 
         public override Empty TransferOwnership(AddressInput input)
         {
             AssertIsOwner();
             Assert(State.Owner.Value != Context.Sender, "Current Address Is The Owner.");
-            State.Owner.Value = input.Address;
+            State.Owner.Value = new Address();
             return new Empty();
         }
 
@@ -127,8 +118,8 @@ namespace AElf.Contracts.FishtopiaSMC
 
             State.TokenContract.GetAllowance.Call(new GetAllowanceInput
             {
-                Owner = Context.Sender, // The address that approved the tokens
-                Spender = State.AdminWalletAddress.Value, // The contract address
+                Owner = Context.Sender,
+                Spender = State.AdminWalletAddress.Value, 
                 Symbol = "ELF"
             });
 
@@ -171,14 +162,12 @@ namespace AElf.Contracts.FishtopiaSMC
 
         public override StringValue AdminWallet(Empty input)
         {
-
             return State.AdminWalletAddress.Value == null ? new StringValue() : new StringValue { Value = State.AdminWalletAddress.Value.ToBase58() };
         }
 
         public override BoolValue AvailablePaymentToken(AddressInput input)
         {
             return State.PaymentTokens[input.Address] != null ? new BoolValue { Value = true } : new BoolValue { Value = false };
-
         }
 
         private void AssertIsOwner()

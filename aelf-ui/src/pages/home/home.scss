@@ -42,7 +42,7 @@
       }
       .button-wrapper {
         display: flex;
-        gap: 20px;
+        gap: 10px;
         button {
           border-color: var(--app-purple);
           background-color: var(--app-purple);
@@ -59,8 +59,8 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 30px 20px;
-      padding: 20px;
+      gap: 10px 10px;
+      padding: 10px;
 
       .around {
         justify-content: space-around;

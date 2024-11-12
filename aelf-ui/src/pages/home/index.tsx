@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IPortkeyProvider } from '@portkey/provider-types';
 import { toast } from 'react-toastify';
@@ -17,7 +17,7 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
   );
 
   const Initialize = async (currentWalletAddress: string) => {
-    const initializeLoadingId = toast.loading('Initialize on SideChain...');
+    const initializeLoadingId = toast.loading('Initialization on SideChain...');
     try {
       await sideChainSmartContract?.callSendMethod('Initialize', currentWalletAddress);
 
@@ -28,7 +28,7 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
       });
 
       removeNotification(initializeLoadingId);
-      toast.info('You Can Create NFT now');
+      toast.info('Initialization Successfully.');
       return 'success';
     } catch (error: any) {
       toast.update(initializeLoadingId, {
@@ -56,26 +56,20 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
             <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/get-owner') : toast.warning('Please Connect Wallet First'))}>
               Owner
             </Button>
-            <Button className='header-button' onClick={() => handleInitialize()}>
-              IsOwner
-            </Button>
-            <Button className='header-button' onClick={() => handleInitialize()}>
+            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/get-admin-wallet') : toast.warning('Please Connect Wallet First'))}>
               AdminWallet
-            </Button>
-            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/get-balance-of') : toast.warning('Please Connect Wallet First'))}>
-              BalanceOf
-            </Button>
-            <Button className='header-button' onClick={() => handleInitialize()}>
-              AvailablePaymentToken
-            </Button>
-            <Button className='header-button' onClick={() => handleInitialize()}>
-              AvailableItems
             </Button>
             <Button
               className='header-button'
-              onClick={() => (currentWalletAddress ? navigate('/purchase-items') : toast.warning('Please Connect Wallet First'))}
+              onClick={() => (currentWalletAddress ? navigate('/get-balance-of') : toast.warning('Please Connect Wallet First'))}
             >
-              Purchase Items
+              BalanceOf
+            </Button>
+            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/available-payment-token') : toast.warning('Please Connect Wallet First'))}>
+              AvailablePaymentToken
+            </Button>
+            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/available-items') : toast.warning('Please Connect Wallet First'))}>
+              AvailableItems
             </Button>
           </div>
         </div>
@@ -85,7 +79,7 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
         <div className='nft-collection-head'>
           <h2>Write Contract</h2>
           <div className='button-wrapper'>
-            <Button className='header-button' onClick={() => handleInitialize()} disabled={isInitialized}>
+            <Button className='header-button' onClick={() => handleInitialize()}>
               Initialize
             </Button>
 
@@ -109,19 +103,37 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
             >
               RemovePaymentToken
             </Button>
-
+          </div>
+        </div>
+        <div className='nft-collection-head'>
+        <h2></h2>
+          <div className='button-wrapper'>
             <Button
               className='header-button'
-              onClick={() => (currentWalletAddress ? navigate('/add-items') : toast.warning('Please Connect Wallet First'))}
+              onClick={() => (currentWalletAddress ? navigate('/purchase-items') : toast.warning('Please Connect Wallet First'))}
             >
+              PurchaseItems
+            </Button>
+            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/add-items') : toast.warning('Please Connect Wallet First'))}>
               AddItems
+            </Button>
+
+            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/remove-items') : toast.warning('Please Connect Wallet First'))}>
+              RemoveItems
             </Button>
 
             <Button
               className='header-button'
               onClick={() => (currentWalletAddress ? navigate('/purchase-items') : toast.warning('Please Connect Wallet First'))}
             >
-              Purchase Items
+              PurchaseItems
+            </Button>
+
+            <Button
+              className='header-button'
+              onClick={() => (currentWalletAddress ? navigate('/transfer-owner-ship') : toast.warning('Please Connect Wallet First'))}
+            >
+              TransferOwnerShip
             </Button>
           </div>
         </div>

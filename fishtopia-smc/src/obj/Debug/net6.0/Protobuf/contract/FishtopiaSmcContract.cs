@@ -37,39 +37,39 @@ namespace AElf.Contracts.FishtopiaSMC {
             "BKC7GAEigwEKDUFkZEl0ZW1zSW5wdXQSEAoIaXRlbXNfaWQYASABKAkSFAoM",
             "aXNfYXZhaWxhYmxlGAIgASgIEg8KB2Nhbl9idXkYAyABKAgSJAoNcGF5bWVu",
             "dF90b2tlbhgEIAEoCzINLmFlbGYuQWRkcmVzcxITCgtpdGVtc19wcmljZRgF",
-            "IAEoAyIkChBSZW1vdmVJdGVtc0lucHV0EhAKCGl0ZW1zX2lkGAEgASgJIoEB",
-            "CgtJdGVtc091dHB1dBIQCghpdGVtc19pZBgBIAEoCRIUCgxpc19hdmFpbGFi",
-            "bGUYAiABKAgSDwoHY2FuX2J1eRgDIAEoCBIkCg1wYXltZW50X3Rva2VuGAQg",
-            "ASgLMg0uYWVsZi5BZGRyZXNzEhMKC2l0ZW1zX3ByaWNlGAUgASgDIjUKD0l0",
-            "ZW1zTGlzdE91dHB1dBIiCgxpdGVtc19vdXRwdXQYASADKAsyDC5JdGVtc091",
-            "dHB1dCIuCgxBZGRyZXNzSW5wdXQSHgoHYWRkcmVzcxgBIAEoCzINLmFlbGYu",
-            "QWRkcmVzcyJ+CghJdGVtc0RBTxIQCghpdGVtc19pZBgBIAEoCRIUCgxpc19h",
-            "dmFpbGFibGUYAiABKAgSDwoHY2FuX2J1eRgDIAEoCBIkCg1wYXltZW50X3Rv",
-            "a2VuGAQgASgLMg0uYWVsZi5BZGRyZXNzEhMKC2l0ZW1zX3ByaWNlGAUgASgD",
-            "Mo0ICgxGaXNodG9waWFTTUMSPgoKSW5pdGlhbGl6ZRIWLmdvb2dsZS5wcm90",
-            "b2J1Zi5FbXB0eRoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEjkKDlNldEFk",
-            "bWluV2FsbGV0Eg0uQWRkcmVzc0lucHV0GhYuZ29vZ2xlLnByb3RvYnVmLkVt",
-            "cHR5IgASPgoNUHVyY2hhc2VJdGVtcxITLlB1cmNoYXNlSXRlbXNJbnB1dBoW",
-            "Lmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEjoKD0FkZFBheW1lbnRUb2tlbhIN",
-            "LkFkZHJlc3NJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEj0KElJl",
-            "bW92ZVBheW1lbnRUb2tlbhINLkFkZHJlc3NJbnB1dBoWLmdvb2dsZS5wcm90",
-            "b2J1Zi5FbXB0eSIAEjQKCEFkZEl0ZW1zEg4uQWRkSXRlbXNJbnB1dBoWLmdv",
-            "b2dsZS5wcm90b2J1Zi5FbXB0eSIAEkUKC1JlbW92ZUl0ZW1zEhwuZ29vZ2xl",
-            "LnByb3RvYnVmLlN0cmluZ1ZhbHVlGhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5",
-            "IgASRQoRUmVub3VuY2VPd25lcnNoaXASFi5nb29nbGUucHJvdG9idWYuRW1w",
-            "dHkaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABI8ChFUcmFuc2Zlck93bmVy",
-            "c2hpcBINLkFkZHJlc3NJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIA",
-            "EkQKBU93bmVyEhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5GhwuZ29vZ2xlLnBy",
-            "b3RvYnVmLlN0cmluZ1ZhbHVlIgWIifcBARJKCgtBZG1pbldhbGxldBIWLmdv",
-            "b2dsZS5wcm90b2J1Zi5FbXB0eRocLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdW",
-            "YWx1ZSIFiIn3AQESPgoJQmFsYW5jZU9mEg0uQWRkcmVzc0lucHV0GhsuZ29v",
-            "Z2xlLnByb3RvYnVmLkludDY0VmFsdWUiBYiJ9wEBEkkKFUF2YWlsYWJsZVBh",
-            "eW1lbnRUb2tlbhINLkFkZHJlc3NJbnB1dBoaLmdvb2dsZS5wcm90b2J1Zi5C",
-            "b29sVmFsdWUiBYiJ9wEBElEKDkF2YWlsYWJsZUl0ZW1zEhwuZ29vZ2xlLnBy",
-            "b3RvYnVmLlN0cmluZ1ZhbHVlGhouZ29vZ2xlLnByb3RvYnVmLkJvb2xWYWx1",
-            "ZSIFiIn3AQEaVbLM9gEtQUVsZi5Db250cmFjdHMuRmlzaHRvcGlhU01DLkZp",
-            "c2h0b3BpYVNNQ1N0YXRlysr2AR5Qcm90b2J1Zi9yZWZlcmVuY2UvYWNzMTIu",
-            "cHJvdG9CHqoCG0FFbGYuQ29udHJhY3RzLkZpc2h0b3BpYVNNQ2IGcHJvdG8z"));
+            "IAEoAyIkChBSZW1vdmVJdGVtc0lucHV0EhAKCGl0ZW1zX2lkGAEgASgJIicK",
+            "E0F2YWlsYWJsZUl0ZW1zSW5wdXQSEAoIaXRlbXNfaWQYASABKAkipAEKC0l0",
+            "ZW1zT3V0cHV0EhcKCGl0ZW1zX2lkGAEgASgJQgWIj/UBARIbCgxpc19hdmFp",
+            "bGFibGUYAiABKAhCBYiP9QEBEhYKB2Nhbl9idXkYAyABKAhCBYiP9QEBEisK",
+            "DXBheW1lbnRfdG9rZW4YBCABKAsyDS5hZWxmLkFkZHJlc3NCBYiP9QEBEhoK",
+            "C2l0ZW1zX3ByaWNlGAUgASgDQgWIj/UBASI1Cg9JdGVtc0xpc3RPdXRwdXQS",
+            "IgoMaXRlbXNfb3V0cHV0GAEgAygLMgwuSXRlbXNPdXRwdXQiLgoMQWRkcmVz",
+            "c0lucHV0Eh4KB2FkZHJlc3MYASABKAsyDS5hZWxmLkFkZHJlc3MifgoISXRl",
+            "bXNEQU8SEAoIaXRlbXNfaWQYASABKAkSFAoMaXNfYXZhaWxhYmxlGAIgASgI",
+            "Eg8KB2Nhbl9idXkYAyABKAgSJAoNcGF5bWVudF90b2tlbhgEIAEoCzINLmFl",
+            "bGYuQWRkcmVzcxITCgtpdGVtc19wcmljZRgFIAEoAzKzBwoMRmlzaHRvcGlh",
+            "U01DEj4KCkluaXRpYWxpemUSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaFi5n",
+            "b29nbGUucHJvdG9idWYuRW1wdHkiABI5Cg5TZXRBZG1pbldhbGxldBINLkFk",
+            "ZHJlc3NJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEj4KDVB1cmNo",
+            "YXNlSXRlbXMSEy5QdXJjaGFzZUl0ZW1zSW5wdXQaFi5nb29nbGUucHJvdG9i",
+            "dWYuRW1wdHkiABI6Cg9BZGRQYXltZW50VG9rZW4SDS5BZGRyZXNzSW5wdXQa",
+            "Fi5nb29nbGUucHJvdG9idWYuRW1wdHkiABI9ChJSZW1vdmVQYXltZW50VG9r",
+            "ZW4SDS5BZGRyZXNzSW5wdXQaFi5nb29nbGUucHJvdG9idWYuRW1wdHkiABI0",
+            "CghBZGRJdGVtcxIOLkFkZEl0ZW1zSW5wdXQaFi5nb29nbGUucHJvdG9idWYu",
+            "RW1wdHkiABI6CgtSZW1vdmVJdGVtcxIRLlJlbW92ZUl0ZW1zSW5wdXQaFi5n",
+            "b29nbGUucHJvdG9idWYuRW1wdHkiABI8ChFUcmFuc2Zlck93bmVyc2hpcBIN",
+            "LkFkZHJlc3NJbnB1dBoWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eSIAEkQKBU93",
+            "bmVyEhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5GhwuZ29vZ2xlLnByb3RvYnVm",
+            "LlN0cmluZ1ZhbHVlIgWIifcBARJKCgtBZG1pbldhbGxldBIWLmdvb2dsZS5w",
+            "cm90b2J1Zi5FbXB0eRocLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZSIF",
+            "iIn3AQESPgoJQmFsYW5jZU9mEg0uQWRkcmVzc0lucHV0GhsuZ29vZ2xlLnBy",
+            "b3RvYnVmLkludDY0VmFsdWUiBYiJ9wEBEkkKFUF2YWlsYWJsZVBheW1lbnRU",
+            "b2tlbhINLkFkZHJlc3NJbnB1dBoaLmdvb2dsZS5wcm90b2J1Zi5Cb29sVmFs",
+            "dWUiBYiJ9wEBEkkKDkF2YWlsYWJsZUl0ZW1zEhQuQXZhaWxhYmxlSXRlbXNJ",
+            "bnB1dBoaLmdvb2dsZS5wcm90b2J1Zi5Cb29sVmFsdWUiBYiJ9wEBGlWyzPYB",
+            "LUFFbGYuQ29udHJhY3RzLkZpc2h0b3BpYVNNQy5GaXNodG9waWFTTUNTdGF0",
+            "ZcrK9gEeUHJvdG9idWYvcmVmZXJlbmNlL2FjczEyLnByb3RvQh6qAhtBRWxm",
+            "LkNvbnRyYWN0cy5GaXNodG9waWFTTUNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::AElf.Types.CoreReflection.Descriptor, global::AElf.OptionsReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.WrappersReflection.Descriptor, global::AElf.Standards.ACS12.Acs12Reflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -77,6 +77,7 @@ namespace AElf.Contracts.FishtopiaSMC {
             new pbr::GeneratedClrTypeInfo(typeof(global::AElf.Contracts.FishtopiaSMC.PurchaseItemsEvent), global::AElf.Contracts.FishtopiaSMC.PurchaseItemsEvent.Parser, new[]{ "UserId", "ItemsId", "Spender", "PayableAmount", "PaymentToken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AElf.Contracts.FishtopiaSMC.AddItemsInput), global::AElf.Contracts.FishtopiaSMC.AddItemsInput.Parser, new[]{ "ItemsId", "IsAvailable", "CanBuy", "PaymentToken", "ItemsPrice" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput), global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput.Parser, new[]{ "ItemsId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AElf.Contracts.FishtopiaSMC.AvailableItemsInput), global::AElf.Contracts.FishtopiaSMC.AvailableItemsInput.Parser, new[]{ "ItemsId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AElf.Contracts.FishtopiaSMC.ItemsOutput), global::AElf.Contracts.FishtopiaSMC.ItemsOutput.Parser, new[]{ "ItemsId", "IsAvailable", "CanBuy", "PaymentToken", "ItemsPrice" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AElf.Contracts.FishtopiaSMC.ItemsListOutput), global::AElf.Contracts.FishtopiaSMC.ItemsListOutput.Parser, new[]{ "ItemsOutput" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::AElf.Contracts.FishtopiaSMC.AddressInput), global::AElf.Contracts.FishtopiaSMC.AddressInput.Parser, new[]{ "Address" }, null, null, null, null),
@@ -1286,6 +1287,195 @@ namespace AElf.Contracts.FishtopiaSMC {
 
   }
 
+  public sealed partial class AvailableItemsInput : pb::IMessage<AvailableItemsInput>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<AvailableItemsInput> _parser = new pb::MessageParser<AvailableItemsInput>(() => new AvailableItemsInput());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<AvailableItemsInput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::AElf.Contracts.FishtopiaSMC.FishtopiaSmcContractReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AvailableItemsInput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AvailableItemsInput(AvailableItemsInput other) : this() {
+      itemsId_ = other.itemsId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AvailableItemsInput Clone() {
+      return new AvailableItemsInput(this);
+    }
+
+    /// <summary>Field number for the "items_id" field.</summary>
+    public const int ItemsIdFieldNumber = 1;
+    private string itemsId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ItemsId {
+      get { return itemsId_; }
+      set {
+        itemsId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as AvailableItemsInput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(AvailableItemsInput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ItemsId != other.ItemsId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ItemsId.Length != 0) hash ^= ItemsId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ItemsId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ItemsId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ItemsId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ItemsId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ItemsId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemsId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(AvailableItemsInput other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ItemsId.Length != 0) {
+        ItemsId = other.ItemsId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            ItemsId = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            ItemsId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class ItemsOutput : pb::IMessage<ItemsOutput>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1300,7 +1490,7 @@ namespace AElf.Contracts.FishtopiaSMC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AElf.Contracts.FishtopiaSMC.FishtopiaSmcContractReflection.Descriptor.MessageTypes[4]; }
+      get { return global::AElf.Contracts.FishtopiaSMC.FishtopiaSmcContractReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1646,7 +1836,7 @@ namespace AElf.Contracts.FishtopiaSMC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AElf.Contracts.FishtopiaSMC.FishtopiaSmcContractReflection.Descriptor.MessageTypes[5]; }
+      get { return global::AElf.Contracts.FishtopiaSMC.FishtopiaSmcContractReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1824,7 +2014,7 @@ namespace AElf.Contracts.FishtopiaSMC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AElf.Contracts.FishtopiaSMC.FishtopiaSmcContractReflection.Descriptor.MessageTypes[6]; }
+      get { return global::AElf.Contracts.FishtopiaSMC.FishtopiaSmcContractReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2022,7 +2212,7 @@ namespace AElf.Contracts.FishtopiaSMC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::AElf.Contracts.FishtopiaSMC.FishtopiaSmcContractReflection.Descriptor.MessageTypes[7]; }
+      get { return global::AElf.Contracts.FishtopiaSMC.FishtopiaSmcContractReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

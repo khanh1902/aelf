@@ -58,7 +58,8 @@ const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyP
         itemsId,
         paymentToken,
       };
-      await sideChainSmartContract?.callSendMethod('PurchaseItems', currentWalletAddress, input);
+      const result = await sideChainSmartContract?.callSendMethod('PurchaseItems', currentWalletAddress, input);
+      console.log(result);
 
       toast.update(addItemsLoadingId, {
         render: 'Purchase Items Successfully!',
@@ -83,9 +84,9 @@ const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyP
         <div className='form-content'>
           <h2 className='form-title'>Add Payment Token</h2>
           <div className='input-group'>
-            <input type='text' name='payableAmount' value={payableAmount} onChange={handlePayableAmountChange} placeholder='Is Available' />
-            <input type='text' name='userId' value={userId} onChange={handleUserIdChange} placeholder='Can Buy' />
-            <input type='text' name='itemsId' value={itemsId} onChange={handleItemsIdChange} placeholder='Id' />
+            <input type='text' name='payableAmount' value={payableAmount} onChange={handlePayableAmountChange} placeholder='Payable Amount' />
+            <input type='text' name='userId' value={userId} onChange={handleUserIdChange} placeholder='User Id' />
+            <input type='text' name='itemsId' value={itemsId} onChange={handleItemsIdChange} placeholder='Items Id' />
             <input type='text' name='paymentToken' value={paymentToken} onChange={handlePaymentTokenChange} placeholder='Payment Token' />
           </div>
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\suga\\aelf\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj": {}
+    "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj": {}
   },
   "projects": {
-    "D:\\suga\\aelf\\fishtopia-smc\\src\\FishtopiaSMC.csproj": {
+    "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\suga\\aelf\\fishtopia-smc\\src\\FishtopiaSMC.csproj",
+        "projectUniqueName": "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj",
         "projectName": "FishtopiaSMC",
-        "projectPath": "D:\\suga\\aelf\\fishtopia-smc\\src\\FishtopiaSMC.csproj",
-        "packagesPath": "C:\\Users\\khanh\\.nuget\\packages\\",
-        "outputPath": "D:\\suga\\aelf\\fishtopia-smc\\src\\obj\\",
+        "projectPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj",
+        "packagesPath": "C:\\Users\\PC0096\\.nuget\\packages\\",
+        "outputPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\khanh\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\PC0096\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -92,17 +92,17 @@
         }
       }
     },
-    "D:\\suga\\aelf\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj": {
+    "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\suga\\aelf\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj",
+        "projectUniqueName": "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj",
         "projectName": "FishtopiaSMC.Tests",
-        "projectPath": "D:\\suga\\aelf\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj",
-        "packagesPath": "C:\\Users\\khanh\\.nuget\\packages\\",
-        "outputPath": "D:\\suga\\aelf\\fishtopia-smc\\test\\obj\\",
+        "projectPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\FishtopiaSMC.Tests.csproj",
+        "packagesPath": "C:\\Users\\PC0096\\.nuget\\packages\\",
+        "outputPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\khanh\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\PC0096\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -114,8 +114,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\suga\\aelf\\fishtopia-smc\\src\\FishtopiaSMC.csproj": {
-                "projectPath": "D:\\suga\\aelf\\fishtopia-smc\\src\\FishtopiaSMC.csproj"
+              "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj": {
+                "projectPath": "D:\\learn\\aelf\\contract\\fishtopia-smc\\src\\FishtopiaSMC.csproj"
               }
             }
           }

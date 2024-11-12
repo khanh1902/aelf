@@ -31,12 +31,9 @@ service FishtopiaSMC {
   rpc AddItems (AddItemsInput) returns (google.protobuf.Empty) {
   }
 
-  rpc RemoveItems(google.protobuf.StringValue) returns (google.protobuf.Empty) {
+  rpc RemoveItems(RemoveItemsInput) returns (google.protobuf.Empty) {
   }
   
-  rpc RenounceOwnership (google.protobuf.Empty) returns (google.protobuf.Empty) {
-  }
-
   rpc TransferOwnership (AddressInput) returns (google.protobuf.Empty) {
   }
 
@@ -56,7 +53,7 @@ service FishtopiaSMC {
     option (aelf.is_view) = true;
   }
 
-  rpc AvailableItems (google.protobuf.StringValue) returns (google.protobuf.BoolValue) {
+  rpc AvailableItems (AvailableItemsInput) returns (google.protobuf.BoolValue) {
     option (aelf.is_view) = true;
   }
 }
@@ -89,12 +86,16 @@ message RemoveItemsInput {
   string items_id = 1;
 }
 
-message ItemsOutput {
+message AvailableItemsInput {
   string items_id = 1;
-  bool is_available = 2;
-  bool can_buy = 3;
-  aelf.Address payment_token = 4;
-  int64 items_price = 5;
+}
+
+message ItemsOutput {
+  string items_id = 1 [(aelf.is_indexed) = true];
+  bool is_available = 2 [(aelf.is_indexed) = true];
+  bool can_buy = 3 [(aelf.is_indexed) = true];
+  aelf.Address payment_token = 4 [(aelf.is_indexed) = true];
+  int64 items_price = 5 [(aelf.is_indexed) = true];
 }
 
 message ItemsListOutput {

@@ -1,7 +1,7 @@
 obj\Debug\net6.0\Protobuf\reference/Acs12.c.cs \
-obj\Debug\net6.0\Protobuf\reference/Acs12.cs: C:/Users/khanh/.nuget/packages/aelf.tools/1.0.2/build/native/include/google/protobuf/descriptor.proto\
- C:/Users/khanh/.nuget/packages/aelf.tools/1.0.2/build/native/include/aelf/options.proto\
- C:/Users/khanh/.nuget/packages/aelf.tools/1.0.2/build/native/include/google/protobuf/empty.proto\
- C:/Users/khanh/.nuget/packages/aelf.tools/1.0.2/build/native/include/google/protobuf/wrappers.proto\
- C:/Users/khanh/.nuget/packages/aelf.tools/1.0.2/build/native/include/aelf/core.proto\
+obj\Debug\net6.0\Protobuf\reference/Acs12.cs: C:/Users/PC0096/.nuget/packages/aelf.tools/1.0.2/build/native/include/google/protobuf/descriptor.proto\
+ C:/Users/PC0096/.nuget/packages/aelf.tools/1.0.2/build/native/include/aelf/options.proto\
+ C:/Users/PC0096/.nuget/packages/aelf.tools/1.0.2/build/native/include/google/protobuf/empty.proto\
+ C:/Users/PC0096/.nuget/packages/aelf.tools/1.0.2/build/native/include/google/protobuf/wrappers.proto\
+ C:/Users/PC0096/.nuget/packages/aelf.tools/1.0.2/build/native/include/aelf/core.proto\
  Protobuf/reference/acs12.proto

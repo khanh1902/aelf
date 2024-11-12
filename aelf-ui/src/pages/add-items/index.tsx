@@ -82,7 +82,7 @@ const AddItems = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
     <div className='form-wrapper'>
       <div className='form-container'>
         <div className='form-content'>
-          <h2 className='form-title'>Add Payment Token</h2>
+          <h2 className='form-title'>Add Items</h2>
           <div className='input-group'>
             <input type='text' name='itemsId' value={itemsId} onChange={handleItemsIdChange} placeholder='Id' />
             <input type='text' name='isAvailable' value={isAvailable} onChange={handleIsAvailableChange} placeholder='Is Available' />
