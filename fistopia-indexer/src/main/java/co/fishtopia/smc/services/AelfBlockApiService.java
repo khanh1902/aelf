@@ -26,7 +26,7 @@ public class AelfBlockApiService {
     @Value("${spring.smc.export-block-api}")
     private String endPoint;
 
-    public AelfBlockAPI.Response<TransactionDTO.APIResponse> getTransactions(String method) {
+    public AelfBlockAPI.Response<TransactionDTO.APIResponse> getTransactions(Integer page, Integer limit, String method) {
         AelfBlockAPI.Response<TransactionDTO.APIResponse> response = new AelfBlockAPI.Response<>();
         try {
             String URL = endPoint + "/api/address/transactions";
@@ -34,10 +34,12 @@ public class AelfBlockApiService {
             headers.setContentType(MediaType.APPLICATION_JSON);
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(URL)
                     .queryParam("contract_address", smcAddress)
-                    .queryParam("page", "0")
-                    .queryParam("limit", "100")
+                    .queryParam("page", page)
+                    .queryParam("limit", limit)
                     .queryParam("address", smcAddress)
+                    .queryParam("order", "ASC")
                     .queryParam("method", method);
+
 
             ParameterizedTypeReference<AelfBlockAPI.Response<TransactionDTO.APIResponse>> responseType =
                     new ParameterizedTypeReference<AelfBlockAPI.Response<TransactionDTO.APIResponse>>() {

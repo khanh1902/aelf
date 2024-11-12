@@ -10,7 +10,7 @@ namespace AElf.Contracts.FishtopiaSMC
     // Contract class must inherit the base class generated from the proto file
     public class FishtopiaSMC : FishtopiaSMCContainer.FishtopiaSMCBase
     {
-        private const string TokenContractAddress = "ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx"; // tDVW token contract address
+        private const string TokenContractAddress = "ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx";
         private const string AdminWalletAddress = "2U9EHbDw1g9jaTG4dRkaQicD2ejysj94CFVxHLengrBL3ijsQq";
 
         private const int _decimal = 8;
