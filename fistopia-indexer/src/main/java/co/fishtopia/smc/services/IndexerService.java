@@ -36,7 +36,7 @@ public class IndexerService {
                 int page = TEMP_PAGE > PAGE ? TEMP_PAGE : PAGE;
                 System.out.println("page: " + TEMP_PAGE);
                 System.out.println("limit: " + LIMIT);
-                 AelfBlockAPI.Response<TransactionDTO.APIResponse> request = aelfBlockApiService.getTransactions(page, limit, "");
+                AelfBlockAPI.Response<TransactionDTO.APIResponse> request = aelfBlockApiService.getTransactions(page, limit, "");
                 transactions = request.getTransactions();
                 if (transactions.isEmpty()) return;
                 int transactionsLength = transactions.size();

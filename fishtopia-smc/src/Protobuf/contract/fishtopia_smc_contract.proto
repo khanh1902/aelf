@@ -15,6 +15,9 @@ service FishtopiaSMC {
   
   rpc Initialize(google.protobuf.Empty) returns (google.protobuf.Empty) {
   }
+
+  rpc IsInitialized(google.protobuf.Empty) returns (google.protobuf.BoolValue) {
+  }
   
   rpc SetAdminWallet (AddressInput) returns (google.protobuf.Empty) {
   }

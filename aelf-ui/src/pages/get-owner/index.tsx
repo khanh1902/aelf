@@ -18,36 +18,24 @@ const GetOwner = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
   };
   // Handle Transfer Submit Form
   const onSubmit = async () => {
-    const setAdminWalletLoadingId = toast.loading('Load Owner Executing');
+    const setOwnerLoadingId = toast.loading('Load Owner Executing');
 
     try {
-      
-      const values = {};
-      const data = await sideChainSmartContract?.callViewMethod('Test', values);
-      toast.update(setAdminWalletLoadingId, {
-        render: 'Load Admin Wallet Successfully!',
-        type: 'success',
-        isLoading: false,
-      });
-      removeNotification(setAdminWalletLoadingId);
-
-      await delay(3000);
-      return data;
+      const result = await sideChainSmartContract?.callViewMethod('Owner', '');
+      if (result && result.data && result.data.value) {
+        toast.update(setOwnerLoadingId, {
+          render: 'Load Owner Successfully!',
+          type: 'success',
+          isLoading: false,
+        });
+        setAddress(result.data.value);
+        removeNotification(setOwnerLoadingId);
+      }
     } catch (error: any) {
       console.error(error.message, '=====error');
-      console.error(error);
-      toast.error(error.message);
-      removeNotification(setAdminWalletLoadingId);
+      removeNotification(setOwnerLoadingId);
     }
   };
-
-  useEffect(() => {
-    onSubmit()
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => console.log(error));
-  }, [currentWalletAddress, sideChainSmartContract]);
 
   return (
     <div className='form-wrapper'>
@@ -55,16 +43,14 @@ const GetOwner = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
         <div className='form-content'>
           <h2 className='form-title'>Owner</h2>
           <div className='input-group'>
-            {currentWalletAddress ? (
+            {address ? (
               <div className='nft-collection'>
                 <div className='bordered-container'>
-                  <strong>Address: </strong>
+                  <strong>Result: {address}</strong>
                 </div>
               </div>
             ) : (
-              <div className='bordered-container'>
-                <strong>Please connect your Portkey Wallet and Create a new NFT Collection and NFT Tokens</strong>
-              </div>
+              <></>
             )}
           </div>
 

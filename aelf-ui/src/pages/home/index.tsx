@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IPortkeyProvider } from '@portkey/provider-types';
 import { toast } from 'react-toastify';
@@ -12,9 +12,17 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
   console.log(currentWalletAddress);
   const navigate = useNavigate();
   const { sideChainSmartContract } = useNFTSmartContract(provider);
-  const [isInitialized, setIsInitialized] = useState<boolean>(
-    localStorage.getItem('Initialized') && localStorage.getItem('Initialized') === '1' ? true : false
-  );
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
+
+  const checkInitialized = async () => {
+    const result = await sideChainSmartContract?.callViewMethod('IsInitialized', '');
+    if (result && result.data && result.data.value == true) {
+      setIsInitialized(true);
+    }
+  };
+  useEffect(() => {
+    checkInitialized();
+  }, []);
 
   const Initialize = async (currentWalletAddress: string) => {
     const initializeLoadingId = toast.loading('Initialization on SideChain...');
@@ -44,7 +52,6 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
   const handleInitialize = async () => {
     await Initialize(currentWalletAddress as string);
     setIsInitialized(true);
-    localStorage.setItem('Initialized', '1');
   };
 
   return (
@@ -56,7 +63,10 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
             <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/get-owner') : toast.warning('Please Connect Wallet First'))}>
               Owner
             </Button>
-            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/get-admin-wallet') : toast.warning('Please Connect Wallet First'))}>
+            <Button
+              className='header-button'
+              onClick={() => (currentWalletAddress ? navigate('/get-admin-wallet') : toast.warning('Please Connect Wallet First'))}
+            >
               AdminWallet
             </Button>
             <Button
@@ -65,10 +75,16 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
             >
               BalanceOf
             </Button>
-            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/available-payment-token') : toast.warning('Please Connect Wallet First'))}>
+            <Button
+              className='header-button'
+              onClick={() => (currentWalletAddress ? navigate('/available-payment-token') : toast.warning('Please Connect Wallet First'))}
+            >
               AvailablePaymentToken
             </Button>
-            <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/available-items') : toast.warning('Please Connect Wallet First'))}>
+            <Button
+              className='header-button'
+              onClick={() => (currentWalletAddress ? navigate('/available-items') : toast.warning('Please Connect Wallet First'))}
+            >
               AvailableItems
             </Button>
           </div>
@@ -79,9 +95,11 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
         <div className='nft-collection-head'>
           <h2>Write Contract</h2>
           <div className='button-wrapper'>
-            <Button className='header-button' onClick={() => handleInitialize()}>
-              Initialize
-            </Button>
+            {!isInitialized && (
+              <Button className='header-button' onClick={() => handleInitialize()}>
+                Initialize
+              </Button>
+            )}
 
             <Button
               className='header-button'
@@ -106,7 +124,7 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
           </div>
         </div>
         <div className='nft-collection-head'>
-        <h2></h2>
+          <h2></h2>
           <div className='button-wrapper'>
             <Button
               className='header-button'

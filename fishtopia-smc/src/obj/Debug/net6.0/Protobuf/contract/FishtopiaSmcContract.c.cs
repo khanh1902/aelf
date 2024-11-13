@@ -40,13 +40,13 @@ namespace AElf.Contracts.FishtopiaSMC {
 
     #region Marshallers
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Empty.Parser.ParseFrom);
+    static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.BoolValue> __Marshaller_google_protobuf_BoolValue = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.BoolValue.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.AddressInput> __Marshaller_AddressInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.AddressInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.PurchaseItemsInput> __Marshaller_PurchaseItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.PurchaseItemsInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.AddItemsInput> __Marshaller_AddItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.AddItemsInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput> __Marshaller_RemoveItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.RemoveItemsInput.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.StringValue> __Marshaller_google_protobuf_StringValue = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.StringValue.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.Int64Value> __Marshaller_google_protobuf_Int64Value = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.Int64Value.Parser.ParseFrom);
-    static readonly aelf::Marshaller<global::Google.Protobuf.WellKnownTypes.BoolValue> __Marshaller_google_protobuf_BoolValue = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Google.Protobuf.WellKnownTypes.BoolValue.Parser.ParseFrom);
     static readonly aelf::Marshaller<global::AElf.Contracts.FishtopiaSMC.AvailableItemsInput> __Marshaller_AvailableItemsInput = aelf::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AElf.Contracts.FishtopiaSMC.AvailableItemsInput.Parser.ParseFrom);
     #endregion
 
@@ -57,6 +57,13 @@ namespace AElf.Contracts.FishtopiaSMC {
         "Initialize",
         __Marshaller_google_protobuf_Empty,
         __Marshaller_google_protobuf_Empty);
+
+    static readonly aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.BoolValue> __Method_IsInitialized = new aelf::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Google.Protobuf.WellKnownTypes.BoolValue>(
+        aelf::MethodType.Action,
+        __ServiceName,
+        "IsInitialized",
+        __Marshaller_google_protobuf_Empty,
+        __Marshaller_google_protobuf_BoolValue);
 
     static readonly aelf::Method<global::AElf.Contracts.FishtopiaSMC.AddressInput, global::Google.Protobuf.WellKnownTypes.Empty> __Method_SetAdminWallet = new aelf::Method<global::AElf.Contracts.FishtopiaSMC.AddressInput, global::Google.Protobuf.WellKnownTypes.Empty>(
         aelf::MethodType.Action,
@@ -171,6 +178,11 @@ namespace AElf.Contracts.FishtopiaSMC {
         throw new global::System.NotImplementedException();
       }
 
+      public virtual global::Google.Protobuf.WellKnownTypes.BoolValue IsInitialized(global::Google.Protobuf.WellKnownTypes.Empty input)
+      {
+        throw new global::System.NotImplementedException();
+      }
+
       public virtual global::Google.Protobuf.WellKnownTypes.Empty SetAdminWallet(global::AElf.Contracts.FishtopiaSMC.AddressInput input)
       {
         throw new global::System.NotImplementedException();
@@ -238,6 +250,7 @@ namespace AElf.Contracts.FishtopiaSMC {
       return aelf::ServerServiceDefinition.CreateBuilder()
           .AddDescriptors(Descriptors)
           .AddMethod(__Method_Initialize, serviceImpl.Initialize)
+          .AddMethod(__Method_IsInitialized, serviceImpl.IsInitialized)
           .AddMethod(__Method_SetAdminWallet, serviceImpl.SetAdminWallet)
           .AddMethod(__Method_PurchaseItems, serviceImpl.PurchaseItems)
           .AddMethod(__Method_AddPaymentToken, serviceImpl.AddPaymentToken)

@@ -29,6 +29,12 @@ namespace AElf.Contracts.FishtopiaSMC
             return new Empty();
         }
 
+        public override BoolValue IsInitialized(Empty input)
+        {
+            if (State.Initialized.Value == true) return new BoolValue { Value = true };
+            return new BoolValue { Value = false };
+        }
+
         public override Empty SetAdminWallet(AddressInput input)
         {
             AssertIsOwner();
@@ -119,7 +125,7 @@ namespace AElf.Contracts.FishtopiaSMC
             State.TokenContract.GetAllowance.Call(new GetAllowanceInput
             {
                 Owner = Context.Sender,
-                Spender = State.AdminWalletAddress.Value, 
+                Spender = State.AdminWalletAddress.Value,
                 Symbol = "ELF"
             });
 
@@ -146,7 +152,7 @@ namespace AElf.Contracts.FishtopiaSMC
 
         public override StringValue Owner(Empty input)
         {
-            return new StringValue { Value = Context.Sender.ToBase58() };
+            return new StringValue { Value = State.Owner.Value.ToBase58() };
         }
 
         public override Int64Value BalanceOf(AddressInput input)
