@@ -34,8 +34,8 @@ public class AelfBlockApiService {
             headers.setContentType(MediaType.APPLICATION_JSON);
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(URL)
                     .queryParam("contract_address", smcAddress)
-                    .queryParam("page", page)
-                    .queryParam("limit", limit)
+                    .queryParam("page", page.toString())
+                    .queryParam("limit", limit.toString())
                     .queryParam("address", smcAddress)
                     .queryParam("order", "ASC")
                     .queryParam("method", method);

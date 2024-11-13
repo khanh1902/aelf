@@ -31,13 +31,14 @@ public class IndexerService {
             int maxTransactionProcess = LIMIT;
             ArrayList<TransactionDTO.APIResponse> transactions;
             if (PAGE == 0) {
+                // change limit if transactions in previous crawl < 500
                 int limit = CHECK_POINT_LIMIT < LIMIT ? CHECK_POINT_LIMIT : LIMIT;
-                int page = TEMP_PAGE > PAGE ? TEMP_PAGE : LIMIT;
-                AelfBlockAPI.Response<TransactionDTO.APIResponse> request = aelfBlockApiService.getTransactions(page, limit, "");
-
+                int page = TEMP_PAGE > PAGE ? TEMP_PAGE : PAGE;
+                System.out.println("page: " + TEMP_PAGE);
+                System.out.println("limit: " + LIMIT);
+                 AelfBlockAPI.Response<TransactionDTO.APIResponse> request = aelfBlockApiService.getTransactions(page, limit, "");
                 transactions = request.getTransactions();
                 if (transactions.isEmpty()) return;
-
                 int transactionsLength = transactions.size();
 
                 if (transactionsLength < LIMIT) {
@@ -47,45 +48,56 @@ public class IndexerService {
                         CHECK_POINT_LIMIT = (transactionsLength + CHECK_POINT_LIMIT) / (TEMP_PAGE + 1);
                     }
                     TEMP_PAGE++;
-                    maxTransactionProcess = transactionsLength;
+                    int limitTransactionProcess = LIMIT - CHECK_POINT_LIMIT;
+                    maxTransactionProcess = Math.min(limitTransactionProcess, transactionsLength);
                 } else {
                     PAGE++;
                     CHECK_POINT_LIMIT = LIMIT;
                 }
+
+                System.out.println("transactions length: " + transactionsLength);
+                System.out.println("check_point: " + CHECK_POINT_LIMIT);
             } else {
                 // change limit if transactions in previous crawl < 500
                 int limit = CHECK_POINT_LIMIT > LIMIT ? CHECK_POINT_LIMIT : LIMIT;
+                System.out.println("page: " + PAGE);
+                System.out.println("limit: " + LIMIT);
                 AelfBlockAPI.Response<TransactionDTO.APIResponse> request = aelfBlockApiService.getTransactions(PAGE, limit, "");
-
                 transactions = request.getTransactions();
                 if (transactions.isEmpty()) return;
-
                 int transactionsLength = transactions.size();
 
-                // re-calculator if transaction < 500
+                // re-calculator if transactions < 500
                 if (transactionsLength < LIMIT) {
                     // re-calculator limit check point for next crawl
                     // example: totals from page 0->2 is 1222 -> limit = 1500 - 1222 + 1
-                    CHECK_POINT_LIMIT = (transactionsLength + LIMIT * PAGE) / PAGE + 1;
-                    maxTransactionProcess = LIMIT * (PAGE + 1) - CHECK_POINT_LIMIT;
+                    CHECK_POINT_LIMIT = (transactionsLength + CHECK_POINT_LIMIT * PAGE) / PAGE + 1;
+                    int limitTransactionProcess = LIMIT * (PAGE + 1) - CHECK_POINT_LIMIT;
+                    maxTransactionProcess = Math.min(limitTransactionProcess, transactionsLength);
                 } else {
                     // increase page and reset check point limit
                     PAGE++;
                     CHECK_POINT_LIMIT = LIMIT;
                 }
+
+                System.out.println("transactions length: " + transactionsLength);
+                System.out.println("check_point: " + CHECK_POINT_LIMIT);
             }
+
+            System.out.println("transactions process: " + maxTransactionProcess);
 
             for (int i = 0; i < maxTransactionProcess; i++) {
                 TransactionDTO.APIResponse transaction = transactions.get(i);
                 if (transactionRepository.findByTransactionId(transaction.getTx_id()) != null) continue;
                 Transaction transactionInfo = Transaction.builder()
                         .transactionId(transaction.getTx_id())
-                        .amount(transaction.getPayable_amount())
+//                        .amount(transaction.getPayable_amount())
+                        .amount(10L)
                         .sender(transaction.getAddress_from())
                         .receiver(transaction.getAddress_from())
-                        .paymentToken(transaction.getPayment_token())
-                        .user_id(transaction.getUser_id())
-                        .itemsId(transaction.getItems_id())
+//                        .paymentToken(transaction.getPayment_token())
+//                        .user_id(transaction.getUser_id())
+//                        .itemsId(transaction.getItems_id())
                         .build();
 
                 if (transactionInfo == null) return;

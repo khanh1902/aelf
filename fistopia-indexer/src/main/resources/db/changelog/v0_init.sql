@@ -33,3 +33,9 @@ ALTER TABLE "transactions"
 --changeset khanhv@suga.com.vn:add-items_id-transaction-table-smc
 ALTER TABLE "transactions"
     ADD COLUMN "items_id" varchar(255) NOT NULL;
+
+--changeset khanhv@suga.com.vn:drop-items_id-user_id-payment_token-column-transaction-table-smc
+ALTER TABLE "transactions"
+    DROP COLUMN "items_id",
+    DROP COLUMN "user_id",
+    DROP COLUMN "payment_token";

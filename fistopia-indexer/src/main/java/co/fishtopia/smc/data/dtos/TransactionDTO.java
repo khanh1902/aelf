@@ -28,9 +28,9 @@ public class TransactionDTO {
         private Integer quantity;
         private String tx_status;
         private Date time;
-        private Long payable_amount;
-        private String user_id;
-        private String items_id;
-        private String payment_token;
+//        private Long payable_amount;
+//        private String user_id;
+//        private String items_id;
+//        private String payment_token;
     }
 }
