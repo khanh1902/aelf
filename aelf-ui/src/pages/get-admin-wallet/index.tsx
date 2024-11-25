@@ -21,7 +21,7 @@ const GetAdminWallet = ({ provider, currentWalletAddress }: { provider: IPortkey
     const getAdminWalletLoadingId = toast.loading('Load Admin Wallet Executing');
 
     try {
-      const result = await sideChainSmartContract?.callViewMethod('AdminWallet', '');
+      const result = await sideChainSmartContract?.callViewMethod('ReceiverWallet', '');
       if (result && result.data && result.data.value) {
         setAddress(result.data.value);
       }
@@ -43,7 +43,7 @@ const GetAdminWallet = ({ provider, currentWalletAddress }: { provider: IPortkey
     <div className='form-wrapper'>
       <div className='form-container'>
         <div className='form-content'>
-          <h2 className='form-title'>Get Admin Wallet</h2>
+          <h2 className='form-title'>Get Receiver Wallet</h2>
           <div className='input-group'>
             {address ? (
               <div className='nft-collection'>

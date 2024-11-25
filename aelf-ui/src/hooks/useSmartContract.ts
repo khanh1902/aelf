@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 
 type IContract = ReturnType<IChain['getContract']>;
 
-export const MAIN_CHAIN_TESTNET_SMC = 'JRmBduh4nXWi1aXgdUsj5gJrzeZb2LxmrAbf7W99faZSvoAaE';
-export const DAPP_CHAIN_TESTNET_SMC = 'HoybKkSiGrvmxkwRMgBxqJQ6YhpUhVz5rgpZns4yb1fAwn9MZ';
+export const DAPP_CHAIN_TESTNET_SMC = '2sbQLjkLGvvvZtiCfR2KksvUJSpaBHSJN7rvKCbdummvGWi5fb';
 export const NATIVE_TOKEN_SMC = 'ASh2Wt7nSEmYqnGxPPzp4pnVDU4uhj1XW9Se5VeZcX2UDdyjx';
+// export const DAPP_CHAIN_TESTNET_SMC = 'GsGftEFRv4Qq38sV6YW2UAVNU41DkHDBf5odJzt3j12T6eBNb';
+// export const NATIVE_TOKEN_SMC = '7RzVGiuVWkvL4VfVHdZfQF2Tri3sgLe9U991bohHFfSRZXuGX';
 
 // Custom Hook for interacting with NFT Smart Contracts
 const useSmartContract = (provider: IPortkeyProvider | null) => {
   // State variables to store the smart contract instances
-  const [mainChainSmartContract, setMainChainSmartContract] = useState<IContract>();
   const [sideChainSmartContract, setSideChainSmartContract] = useState<IContract>();
   const [nativeTokenSmartContract, setNativeTokenSmartContract] = useState<IContract>();
 
@@ -38,21 +38,19 @@ const useSmartContract = (provider: IPortkeyProvider | null) => {
   useEffect(() => {
     (async () => {
       // Fetch the MainChain Testnet Contract
-      const mainChainContract = await fetchContract('AELF', MAIN_CHAIN_TESTNET_SMC);
-      setMainChainSmartContract(mainChainContract as IContract);
-
       // Fetch the dAppChain Testnet Contract
       const sideChainContract = await fetchContract('tDVW', DAPP_CHAIN_TESTNET_SMC);
       setSideChainSmartContract(sideChainContract as IContract);
 
       const nativeTokenContract = await fetchContract('tDVW', NATIVE_TOKEN_SMC);
       setNativeTokenSmartContract(nativeTokenContract as IContract);
+
+
     })();
   }, [provider]); // Dependency array ensures this runs when the provider changes
 
   // Return the smart contract instances
   return {
-    mainChainSmartContract,
     sideChainSmartContract,
     nativeTokenSmartContract,
   };

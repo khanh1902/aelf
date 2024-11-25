@@ -1,7 +1,7 @@
 import { Address, IPortkeyProvider } from '@portkey/provider-types';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import axios from 'axios';
 import './transfer-nft.scss';
 import { Button } from '@/components/ui/button';
 import useSmartContract, { DAPP_CHAIN_TESTNET_SMC } from '@/hooks/useSmartContract';
@@ -10,10 +10,7 @@ import { useState } from 'react';
 
 const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyProvider | null; currentWalletAddress: string }) => {
   const { sideChainSmartContract, nativeTokenSmartContract } = useSmartContract(provider);
-  const [payableAmount, setPayableAmount] = useState<number>();
-  const [userId, setUserId] = useState<string>('');
   const [itemsId, setItemsId] = useState<string>('');
-  const [paymentToken, setPaymentToken] = useState<Address>('');
   const navigate = useNavigate();
 
   const handleReturnClick = () => {
@@ -25,52 +22,51 @@ const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyP
     setItemsId(value);
   };
 
-  const handlePayableAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setPayableAmount(value as unknown as number);
-  };
-
-  const handleUserIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setUserId(value);
-  };
-
-  const handlePaymentTokenChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setPaymentToken(value);
-  };
-
   // Handle Transfer Submit Form
   const onSubmit = async () => {
     const addItemsLoadingId = toast.loading('Purchase Items Executing');
 
     try {
-      const approveInput = {
-        spender: DAPP_CHAIN_TESTNET_SMC,
-        symbol: 'ELF',
-        Amount: payableAmount,
-      };
+      // const approveInput = {
+      //   spender: DAPP_CHAIN_TESTNET_SMC,
+      //   symbol: 'ELF',
+      //   Amount: 100000000,
+      // };
 
-      await nativeTokenSmartContract?.callSendMethod('Approve', currentWalletAddress, approveInput);
+      // await nativeTokenSmartContract?.callSendMethod('Approve', currentWalletAddress, approveInput);
       const input = {
-        payableAmount,
-        userId,
+        userId: 'khanhvan@123',
         itemsId,
-        paymentToken,
       };
       const result = await sideChainSmartContract?.callSendMethod('PurchaseItems', currentWalletAddress, input);
-      console.log(result);
+      if (result && result.transactionId) {
+        const config = {
+          method: 'GET',
+          url: `http://localhost:8087/api/aelf/purchased/${result.transactionId}`,
+          headers: {
+            Authorization:
+              'Bearer ' +
+              'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImdyYW50X3R5cGUiOiJ0ZWxlZ3JhbSIsInN1YiI6IjIwIiwiaWF0IjoxNzMyMjcyMTAxLCJleHAiOjE3MzIzNTg1MDF9.MvHkWqqV2VB5doXa4WAlqhKFw_xO8zRrt0913fnwpwE',
+          },
+        };
+        console.log("TxId ===> " + result.transactionId);
+        for (let i = 0; i < 30; i++) {
+          const verifyTx = await axios(config);
+          console.log("Status Code ===> " + verifyTx.status)
+          if (verifyTx.status === 200) {
+            toast.update(addItemsLoadingId, {
+              render: 'Purchase Items Successfully!',
+              type: 'success',
+              isLoading: false,
+            });
+            removeNotification(addItemsLoadingId);
+            return;
+          }
+        }
 
-      toast.update(addItemsLoadingId, {
-        render: 'Purchase Items Successfully!',
-        type: 'success',
-        isLoading: false,
-      });
-      removeNotification(addItemsLoadingId);
-
-      await delay(3000);
-
-      handleReturnClick();
+        toast.error('Purchase Items Failed!');
+        removeNotification(addItemsLoadingId);
+      }
     } catch (error: any) {
       console.error(error.message, '=====error');
       toast.error(error.message);
@@ -82,12 +78,9 @@ const PurchaseItems = ({ provider, currentWalletAddress }: { provider: IPortkeyP
     <div className='form-wrapper'>
       <div className='form-container'>
         <div className='form-content'>
-          <h2 className='form-title'>Add Payment Token</h2>
+          <h2 className='form-title'>PurchaseItems</h2>
           <div className='input-group'>
-            <input type='text' name='payableAmount' value={payableAmount} onChange={handlePayableAmountChange} placeholder='Payable Amount' />
-            <input type='text' name='userId' value={userId} onChange={handleUserIdChange} placeholder='User Id' />
             <input type='text' name='itemsId' value={itemsId} onChange={handleItemsIdChange} placeholder='Items Id' />
-            <input type='text' name='paymentToken' value={paymentToken} onChange={handlePaymentTokenChange} placeholder='Payment Token' />
           </div>
 
           <div className='button-container'>

@@ -21,7 +21,12 @@ const GetOwner = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
     const setOwnerLoadingId = toast.loading('Load Owner Executing');
 
     try {
+      const values = {
+        itemsIds: ["1", "2"],
+      }
       const result = await sideChainSmartContract?.callViewMethod('Owner', '');
+      // const result = await sideChainSmartContract?.callViewMethod('GetItemsPrice', values);
+      console.log(result);
       if (result && result.data && result.data.value) {
         toast.update(setOwnerLoadingId, {
           render: 'Load Owner Successfully!',

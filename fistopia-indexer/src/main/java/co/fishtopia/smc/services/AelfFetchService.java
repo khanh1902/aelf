@@ -1,6 +1,6 @@
 package co.fishtopia.smc.services;
 
-import co.fishtopia.smc.data.domains.Transaction;
+import co.fishtopia.smc.data.domains.AeflMessage;
 import co.fishtopia.smc.data.dtos.AelfBlockAPI;
 import co.fishtopia.smc.data.dtos.TransactionDTO;
 import co.fishtopia.smc.data.repositories.TransactionRepository;
@@ -89,7 +89,7 @@ public class IndexerService {
             for (int i = 0; i < maxTransactionProcess; i++) {
                 TransactionDTO.APIResponse transaction = transactions.get(i);
                 if (transactionRepository.findByTransactionId(transaction.getTx_id()) != null) continue;
-                Transaction transactionInfo = Transaction.builder()
+                AeflMessage transactionInfo = AeflMessage.builder()
                         .transactionId(transaction.getTx_id())
 //                        .amount(transaction.getPayable_amount())
                         .amount(10L)

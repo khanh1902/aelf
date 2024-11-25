@@ -67,7 +67,7 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
               className='header-button'
               onClick={() => (currentWalletAddress ? navigate('/get-admin-wallet') : toast.warning('Please Connect Wallet First'))}
             >
-              AdminWallet
+              ReceiverWallet
             </Button>
             <Button
               className='header-button'
@@ -138,13 +138,6 @@ const HomePage = ({ provider, currentWalletAddress }: { provider: IPortkeyProvid
 
             <Button className='header-button' onClick={() => (currentWalletAddress ? navigate('/remove-items') : toast.warning('Please Connect Wallet First'))}>
               RemoveItems
-            </Button>
-
-            <Button
-              className='header-button'
-              onClick={() => (currentWalletAddress ? navigate('/purchase-items') : toast.warning('Please Connect Wallet First'))}
-            >
-              PurchaseItems
             </Button>
 
             <Button
